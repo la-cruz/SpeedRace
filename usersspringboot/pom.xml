@@ -8,10 +8,10 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>m1if13</groupId>
-	<artifactId>SpringApp</artifactId>
+	<groupId>fr.univlyon1.m1if.m1if13</groupId>
+	<artifactId>usersspringboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringApp</name>
+	<name>usersspringboot</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
