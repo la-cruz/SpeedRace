@@ -27,3 +27,15 @@ test:
     - hostname
     - test -f builds/data.txt
     - grep "true" builds/data.txt
+
+deploy:
+  stage: deploy
+  tags:
+    - mvn
+    - spr
+  script:
+    - echo "debut deploy"
+    - mvn clean package
+    - echo "clean package"
+    - mv target/usersspringboot-0.0.1-SNAPSHOT.jar ~/opt/tomcat/apache-tomcat-9.0.31/webapps
+    - echo "fin"
