@@ -4,10 +4,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import fr.univlyon1.m1if.m1if13.usersspringboot.DAO.UserDao;
+
 @Controller
 public class OperationController {
 
-    // TODO récupérer le DAO...
+    UserDao userManager = new UserDao();
 
     /**
      * Procédure de login "simple" d'un utilisateur
@@ -24,7 +26,9 @@ public class OperationController {
      * Réalise la déconnexion
      */
     @PostMapping("/logout")
-    // TODO
+    public ResponseEntity<Void> logout() {
+        // TODO
+    }
 
     /**
      * Méthode destinée au serveur Node pour valider l'authentification d'un utilisateur.
