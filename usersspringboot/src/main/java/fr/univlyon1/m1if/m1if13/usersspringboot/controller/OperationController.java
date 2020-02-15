@@ -1,5 +1,7 @@
 package fr.univlyon1.m1if.m1if13.usersspringboot.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +11,8 @@ import fr.univlyon1.m1if.m1if13.usersspringboot.DAO.UserDao;
 @Controller
 public class OperationController {
 
-    UserDao userManager = new UserDao();
+    @Autowired
+    private UserDao users;
 
     /**
      * Procédure de login "simple" d'un utilisateur
@@ -19,16 +22,19 @@ public class OperationController {
      */
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestParam("login") String login, @RequestParam("password") String password, @RequestHeader("Origin") String origin) {
-        // TODO
+
+        
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     /**
      * Réalise la déconnexion
      */
-    @PostMapping("/logout")
-    public ResponseEntity<Void> logout() {
-        // TODO
-    }
+    // @PostMapping("/logout")
+    // public ResponseEntity<Void> logout() {
+    //     // TODO
+    // }
 
     /**
      * Méthode destinée au serveur Node pour valider l'authentification d'un utilisateur.
@@ -36,8 +42,8 @@ public class OperationController {
      * @param origin L'origine de la requête (pour la comparer avec celle du client, stockée dans le token JWT)
      * @return Une réponse vide avec un code de statut approprié (204, 400, 401).
      */
-    @GetMapping("/authenticate")
-    public ResponseEntity<Void> authenticate(@RequestParam("token") String token, @RequestParam("origin") String origin) {
-        // TODO
-    }
+    // @GetMapping("/authenticate")
+    // public ResponseEntity<Void> authenticate(@RequestParam("token") String token, @RequestParam("origin") String origin) {
+    //     // TODO
+    // }
 }

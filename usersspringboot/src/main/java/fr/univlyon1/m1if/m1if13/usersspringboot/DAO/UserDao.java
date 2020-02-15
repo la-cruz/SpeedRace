@@ -20,7 +20,13 @@ public class UserDao implements Dao<User> {
      
     @Override
     public Optional<User> get(String id) {
-        return Optional.ofNullable(users.get((Integer.parseInt(id))));
+        for(User user : users) {
+            if (user.getLogin().equals(id)) {
+                return Optional.of(user);
+            }
+        }
+
+        return Optional.empty();
     }
      
     @Override
