@@ -20,4 +20,5 @@ deploy:
     # Useful only for debugging
     #- cat ~/.m2/settings.xml
   script:
+    - cd usersspringboot/
     - mvn clean package 
