@@ -35,5 +35,5 @@ deploy:
     - mvn
     - spr
   script:
-    - sudo apt-get install maven
+    - sudo apt-get install maven -p etudiant
     - mvn clean package
