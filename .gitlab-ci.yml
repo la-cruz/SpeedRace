@@ -10,16 +10,6 @@ variables:
   # Use the cached directory above.
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
 
-before_script:
-  - apt-get update -qq
-  - apt-get install -qq git
-  # Setup SSH deploy keys
-  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
-  - eval $(ssh-agent -s)
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
-  - mkdir -p ~/.ssh
-  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
 deploy:
   image: maven:3.6.1-jdk-11 # docker image with Maven
   before_script:
@@ -27,6 +17,11 @@ deploy:
     # ignores the $http_proxy & friends variable => write a
     # configuration file that does this for us.
     - . setup-mvn-proxy.sh
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
     # Useful only for debugging
     #- cat ~/.m2/settings.xml
   script:
