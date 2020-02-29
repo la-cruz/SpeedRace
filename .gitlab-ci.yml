@@ -28,6 +28,6 @@ deploy:
   script:
     # - cd usersspringboot/
     # - mvn clean package
-    - ssh etudiant@192.168.75.28 "cd var/www && mkdir popeye"
+    - ssh etudiant@192.168.75.28 "mkdir popeye"
   only:
     - master
