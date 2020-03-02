@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <title>Simple-client</title>
+    </head>
+    <body>
+        <h1>Connection page</h1>
+        <form action="index.html" method="post" class="form-login">
+            <div class="form-example">
+                <label for="name">Enter your login: </label>
+                <input type="text" name="login" id="login" required>
+            </div>
+            <div class="form-example">
+                <label for="email">Enter your password: </label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <div class="form-example">
+                <input type="submit" value="Subscribe!">
+            </div>
+            <span class="error-login"></span>
+        </form>
+
+        <button type="button" class="clear-data">
+            Clear navigation data
+        </button>
+
+        <button type="button" class="check">
+            Check if you're connected
+        </button>
+        <span class="is-connected"></span>
+
+        <form action="index.html" method="delete" class="form-logout">
+            <input type="submit" value="Logout">
+        </form>
+    </body>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</html>

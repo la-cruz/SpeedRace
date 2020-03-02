@@ -1,0 +1,259 @@
+---
+openapi: 3.0.1
+info:
+  title: User API - M1IF13
+  description: API built and used for the M1IF13 courses
+  version: '1.0'
+servers:
+- url: http://localhost:8080/v3/a
+  description: Generated server url
+paths:
+  "/login":
+    post:
+      tags:
+      - operation-controller
+      summary: Login
+      description: Log a user
+      operationId: login
+      parameters:
+      - name: login
+        in: query
+        description: The login of the user
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: The password of the user
+        required: true
+        schema:
+          type: string
+      - name: Origin
+        in: header
+        description: Origin of the request
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: logged
+        '400':
+          description: JWT Error
+        '401':
+          description: Password incorrect
+        '404':
+          description: User not found
+  "/authenticate":
+    get:
+      tags:
+      - operation-controller
+      summary: Authenticate
+      description: Verify the authentification of the user
+      operationId: authenticate
+      parameters:
+      - name: token
+        in: query
+        description: JWT of the token
+        required: true
+        schema:
+          type: string
+      - name: origin
+        in: header
+        description: Origin of the request
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Authenticate
+        '400':
+          description: JWT Error
+        '401':
+          description: Not authenticate
+  "/logout":
+    delete:
+      tags:
+      - operation-controller
+      summary: Logout
+      description: Log out a user by his JWT
+      operationId: logout
+      parameters:
+      - name: token
+        in: query
+        description: The JWT of the user you want to disconnect
+        required: true
+        schema:
+          type: string
+      - name: origin
+        in: header
+        description: Origin of the request
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Logged out
+        '400':
+          description: JWT Error
+  "/users":
+    get:
+      tags:
+      - user-rest-controller
+      summary: Get Users
+      description: Return a list of user's login
+      operationId: getUsers
+      parameters:
+      - name: host
+        in: header
+        description: The host uri
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+            application/xml:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+        '204':
+          description: There is no user
+          content:
+            application/json:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+            application/xml:
+              schema:
+                uniqueItems: true
+                type: array
+                items:
+                  type: string
+    post:
+      tags:
+      - user-rest-controller
+      summary: Post a User
+      description: Add a user to the list
+      operationId: postUsers
+      parameters:
+      - name: login
+        in: query
+        description: The login of the user
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: The password of the user
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: The user has been created
+        '400':
+          description: Login or password blank
+  "/users/{userId}":
+    get:
+      tags:
+      - user-rest-controller
+      summary: Get a User
+      description: Return a user by his login
+      operationId: getUser
+      parameters:
+      - name: userId
+        in: path
+        description: The login of the user you need to fetch
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The user
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+            application/xml:
+              schema:
+                "$ref": "#/components/schemas/User"
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/User"
+            application/xml:
+              schema:
+                "$ref": "#/components/schemas/User"
+    put:
+      tags:
+      - user-rest-controller
+      summary: Update a User
+      description: Update a user by his login
+      operationId: putUser
+      parameters:
+      - name: userId
+        in: path
+        description: The login of the user you want to update
+        required: true
+        schema:
+          type: string
+      - name: login
+        in: query
+        description: The new login of the user
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: The new password of the user
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The user has been updated
+        '201':
+          description: The user has been created
+        '400':
+          description: Login or password blank
+    delete:
+      tags:
+      - user-rest-controller
+      summary: Delete a User
+      description: Delete a user by his login
+      operationId: deleteUser
+      parameters:
+      - name: userId
+        in: path
+        description: The user you want to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The user has been deleted
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+        connected:
+          type: boolean

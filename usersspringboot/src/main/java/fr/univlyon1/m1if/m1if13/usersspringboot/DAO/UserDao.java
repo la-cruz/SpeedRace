@@ -7,8 +7,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import fr.univlyon1.m1if.m1if13.usersspringboot.model.User;
 
+@Repository
 public class UserDao implements Dao<User> {
      
     private List<User> users = new ArrayList<>();

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Users list</title>
+</head>
+<body>
+    <h1 th:text="'User ' + ${user.login} + ' is ' + (${user.connected} ? ' connected.' : ' not connected.')"></h1>
+</body>
+</html>
