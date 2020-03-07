@@ -7,7 +7,7 @@ document.querySelector(".form-login").addEventListener("submit", (event) => {
     var login = document.querySelector("#login").value;
     var password = document.querySelector("#password").value;
 
-    postData('http://localhost:8080/login', {
+    postData('http://192.168.75.28:8080/login', {
         login: login,
         password: password
     }).then((json) => {
@@ -39,7 +39,7 @@ document.querySelector(".form-login").addEventListener("submit", (event) => {
 
 document.querySelector(".check").addEventListener("click", (event) => {
     event.preventDefault()
-    getData('http://localhost:8080/authenticate?', {
+    getData('http://192.168.75.28:8080/authenticate?', {
         token: sessionStorage.getItem('token')
     }).then((json) => {
         var message = "";
@@ -69,7 +69,7 @@ document.querySelector(".form-logout").addEventListener("submit", (event) => {
 });
 
 function logout() {
-    deleteData('http://localhost:8080/logout?token=' + sessionStorage.getItem('token')).then((json) => {
+    deleteData('http://192.168.75.28:8080/logout?token=' + sessionStorage.getItem('token')).then((json) => {
         document.querySelector(".form-login").style.display = "block";
         document.querySelector(".form-logout").style.display = "none";
         document.querySelector(".clear-data").style.display = "none";
