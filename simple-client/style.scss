@@ -18,7 +18,8 @@ body {
         font-weight: bold;
     }
 
-    .form-login {
+    .form-login,
+    .form-logout {
         width: 40%;
         .form-example {
             display: flex;
@@ -52,6 +53,7 @@ body {
     }
     
     .btn {
+        width: 40%;
         height: 3rem;
         background-color: #FFCD00;
         color: white;
