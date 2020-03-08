@@ -75,5 +75,9 @@ body {
   font-weight: bold;
   border: none;
   cursor: pointer;
+  border-radius: 50px;
+  font-size: 1.3rem;
+  border: 2px solid #424242;
+  margin: 1rem 0;
 }
 /*# sourceMappingURL=style.css.map */
