@@ -31,6 +31,6 @@ deploy:
     - 'scp target/usersspringboot-0.0.1-SNAPSHOT.jar etudiant@192.168.75.28:'
     - cd ../
     - 'scp -r simple-client/ etudiant@192.168.75.28:'
-    - ssh etudiant@192.168.75.28 "bash test.sh"
+    - ssh etudiant@192.168.75.28 "bash test.sh &"
   only:
     - master
