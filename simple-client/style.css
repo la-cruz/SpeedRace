@@ -28,13 +28,11 @@ body {
   font-weight: bold;
 }
 
-.container .form-login,
-.container .form-logout {
+.container .form-login {
   width: 40%;
 }
 
-.container .form-login .form-example,
-.container .form-logout .form-example {
+.container .form-login .form-example {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -44,15 +42,13 @@ body {
           flex-direction: column;
 }
 
-.container .form-login .form-example label,
-.container .form-logout .form-example label {
+.container .form-login .form-example label {
   font-size: 1.3rem;
   color: #424242;
   font-weight: bold;
 }
 
-.container .form-login .form-example input,
-.container .form-logout .form-example input {
+.container .form-login .form-example input {
   margin: 1rem 0;
   padding: 0 1rem;
   height: 2.5rem;
@@ -61,20 +57,17 @@ body {
   font-size: 1.3rem;
 }
 
-.container .form-login .form-example input:focus,
-.container .form-logout .form-example input:focus {
+.container .form-login .form-example input:focus {
   border-color: #FFCD00;
   outline: none;
 }
 
-.container .form-login .error-login,
-.container .form-logout .error-login {
+.container .form-login .error-login {
   color: red;
   font-weight: bold;
 }
 
 .container .btn {
-  width: 40%;
   height: 3rem;
   background-color: #FFCD00;
   color: white;

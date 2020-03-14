@@ -1,0 +1,19 @@
+{
+  "name": "theinfectiongame",
+  "version": "1.0.0",
+  "description": "This game is based on the well-known Pac-Man Game, but has been modified to fit a brand new threat: COVID-19...",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "ALVES - AUDART",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.4.1",
+    "leaflet": "^1.6.0",
+    "pure-css": "^1.0.4"
+  }
+}
