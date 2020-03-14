@@ -1,5 +1,8 @@
+import L from "leaflet";
 // initialisation de la map
 let mymap = L.map('map');
+L.Icon.Default.imagePath = '../../node_modules/leaflet/dist/images/';
+
 updateMap();
 
 // Création d'un "tile layer" (permet l'affichage sur la carte)
@@ -16,7 +19,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 L.marker([45.78207, 4.86559]).addTo(mymap).bindPopup('Entrée du bâtiment<br><strong>Nautibus</strong>.').openPopup();
 
 // Mise à jour de la map
-function updateMap() {
+export default function updateMap() {
 	// Affichage à la nouvelle position
 	mymap.setView([$('#lat').val(), $('#lon').val()], $('#zoom').val());
 
