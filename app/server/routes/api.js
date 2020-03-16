@@ -19,7 +19,6 @@ function authenticate(jwt) {
         }
     })
     .then(function(response) {
-        console.log(response.status)
         if(response.status === 204) {
             bool = true;
         }
