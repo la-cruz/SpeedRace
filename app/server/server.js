@@ -5,7 +5,7 @@ const apiRouter = require("./routes/api")
 const adminRouter = require("./routes/admin")
 
 app.get('/', (req, res) => res.send('Hello World!'));
-app.use('/static', express.static('../client/public'));
+app.use('/static', express.static('./public'));
 app.use('/api', apiRouter);
 app.use('/admin', adminRouter);
 

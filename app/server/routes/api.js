@@ -10,7 +10,7 @@ listResources.push(new geoResources("test"));
 function authenticate(jwt) {
     axios.get('http://192.168.75.28:8080/authenticate', {
         headers: {
-            origin: 'http://localhost:5500'
+            origin: '192.168.75.28'
         },
         params: {
             token: jwt,

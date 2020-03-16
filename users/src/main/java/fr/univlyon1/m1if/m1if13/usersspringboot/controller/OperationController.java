@@ -47,7 +47,7 @@ public class OperationController {
 			@ApiResponse(responseCode = "404", description = "User not found")
 		}
 	)
-    @CrossOrigin(origins = {"http://localhost:5500", "http://192.168.75.28", "https://192.168.75.28"}, exposedHeaders = "Authentification")
+    @CrossOrigin(origins = {"http://localhost:5500", "http://192.168.75.28", "https://192.168.75.28", "http://192.168.75.28:8080"}, exposedHeaders = "Authentification")
     @PostMapping("/login")
     public ResponseEntity<Void> login(
         @Parameter(description = "The login of the user", in = ParameterIn.QUERY) @RequestParam("login") String login,
@@ -95,7 +95,7 @@ public class OperationController {
 			@ApiResponse(responseCode = "400", description = "JWT Error"),
 		}
 	)
-    @CrossOrigin(origins = {"http://localhost:5500", "http://192.168.75.28", "https://192.168.75.28"})
+    @CrossOrigin(origins = {"http://localhost:5500", "http://192.168.75.28", "https://192.168.75.28", "http://192.168.75.28:8080"})
     @DeleteMapping("/logout")
     public ResponseEntity<Void> logout(
         @Parameter(description = "The JWT of the user you want to disconnect", in = ParameterIn.QUERY) @RequestParam("token") String token,
@@ -126,8 +126,8 @@ public class OperationController {
 			@ApiResponse(responseCode = "401", description = "Not authenticate"),
 		}
 	)
-    @CrossOrigin(origins = {"http://localhost:5500", "http://192.168.75.28", "https://192.168.75.28"}, allowCredentials = "true")
-    @GetMapping("/authenticate")
+    @CrossOrigin(origins = {"http://localhost:5500", "http://192.168.75.28", "https://192.168.75.28", "http://192.168.75.28:8080"}, allowCredentials = "true")
+    @GetMapping("/authenticate")!
     public ResponseEntity<Void> authenticate(
         @Parameter(description = "JWT of the token", in = ParameterIn.QUERY) @RequestParam("token") String token,
         @Parameter(description = "Origin of the request", in = ParameterIn.HEADER) @RequestHeader("origin") String origin
