@@ -15,6 +15,7 @@ document.querySelector(".form-login").addEventListener("submit", (event) => {
         if(json.status == 204) {
             sessionStorage.setItem('token', json.headers.get("Authentification"));
             localStorage.setItem('login', login);
+            console.log(json.headers.get("Authentification"))
             document.querySelector(".form-logout").style.display = "block";
             document.querySelector(".form-login").style.display = "none";
             document.querySelector(".clear-data").style.display = "block";
