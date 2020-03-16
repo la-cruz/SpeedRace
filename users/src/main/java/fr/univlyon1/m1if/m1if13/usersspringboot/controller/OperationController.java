@@ -127,7 +127,7 @@ public class OperationController {
 		}
 	)
     @CrossOrigin(origins = {"http://localhost:5500", "http://192.168.75.28", "https://192.168.75.28", "http://192.168.75.28:8080"}, allowCredentials = "true")
-    @GetMapping("/authenticate")!
+    @GetMapping("/authenticate")
     public ResponseEntity<Void> authenticate(
         @Parameter(description = "JWT of the token", in = ParameterIn.QUERY) @RequestParam("token") String token,
         @Parameter(description = "Origin of the request", in = ParameterIn.HEADER) @RequestHeader("origin") String origin
