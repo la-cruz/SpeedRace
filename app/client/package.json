@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test.js",
-    "build-dev": "webpack -d",
+    "build-dev": "webpack",
     "build-prod": "webpack -p",
     "build-watch": "webpack -d --watch"
   },
@@ -18,7 +18,8 @@
     "array-unique": "^0.3.2",
     "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
-    "purecss": "^1.0.1"
+    "purecss": "^1.0.1",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "css-loader": "^3.4.2",
