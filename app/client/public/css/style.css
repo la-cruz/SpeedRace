@@ -3,3 +3,10 @@
 	width: 600px; 
 	margin: 20px;
 }
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

@@ -1,5 +1,6 @@
 const path = require('path');
 var webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   mode: 'development',
@@ -7,7 +8,7 @@ module.exports = {
   watch: true,
   entry: './public/js/app.js',
   output: {
-    filename: 'main.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'public/dist'),
   },
   module: {
@@ -25,12 +26,22 @@ module.exports = {
           'file-loader',
         ],
       },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      }
     ],
   },
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
-    })
-  ]
+    }),
+    new VueLoaderPlugin()
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, 'public/dist'),
+    compress: true,
+    port: 8080
+  }
 };
