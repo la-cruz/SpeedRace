@@ -29,6 +29,14 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ],
       }
     ],
   },
@@ -42,6 +50,6 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public/dist'),
     compress: true,
-    port: 8080
+    port: 5500
   }
 };
