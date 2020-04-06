@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const port = 3000
 const apiRouter = require("./routes/api")
 const adminRouter = require("./routes/admin")
+
+app.use(cors())
 
 app.get('/', (req, res) => res.send('Hello World!'));
 app.use('/static', express.static('./public'));

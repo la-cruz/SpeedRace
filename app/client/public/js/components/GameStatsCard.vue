@@ -1,0 +1,58 @@
+<template>
+  <aside class="stats-card">
+      <h2>{{ login }}</h2>
+      <p class="status">{{ stats.status }}</p>
+      <span class="ttl">{{ stats.ttl }}</span>
+  </aside>
+</template>
+
+<script>
+    import store from '../stores/store'
+    import Vuex from 'vuex'
+    import DataModule from '../libraries/DataModule'
+
+    export default {
+        name: 'GameStatsCard',
+        store,
+        data: function () {
+            return {
+                stats: {}
+            }
+        },
+        computed: {
+            ...Vuex.mapGetters([
+                'login'
+            ])
+        },
+        created() {
+            DataModule.stats(this.login)
+            .then((response) => {
+                this.stats = response
+            })
+        },
+    }
+</script>
+
+<style lang="scss">
+    .stats-card {
+        color: rgb(235, 231, 27);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        width: 20%;
+        border: rgb(235, 231, 27) solid 2px;
+        border-radius: 10px;
+        margin-top: 7rem;
+        align-self: center;
+
+        .status {
+            font-size: 2rem;
+        }
+
+        .ttl {
+            font-size: 5rem;
+        }
+    }
+</style>
