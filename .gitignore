@@ -104,3 +104,12 @@ web_modules/
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+.vscode/
+
+*.DS_Store
+
+# userspringboot
+usersspringboot/.classpath
+usersspringboot/.settings/
+usersspringboot/.sts4-cache/
+usersspringboot/target/

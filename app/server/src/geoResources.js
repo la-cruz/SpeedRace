@@ -2,7 +2,7 @@ class GeoResources {
     constructor (
         id,
         role="sane",
-        position={},
+        position=[],
         ttl=-1,
         url="",
         blurred=true,
@@ -17,6 +17,10 @@ class GeoResources {
         this.blurred = blurred;
         this.status = status;
         this.trophies = trophies;
+    }
+
+    addTrophy(trophy) {
+        this.trophies.push(trophy)
     }
 }
 
