@@ -7,8 +7,9 @@
             <label>Login : </label><input type="text" v-model="pseudo">
             <label>Mot de passe : </label><input type="password" v-model="password">
         </div>
-        <input type="submit" value="Connexion" @click="login" v-if="!connected">
+        <input type="submit" value="Connexion" @click="connection" v-if="!connected">
         <input type="submit" value="Déconnexion" @click="logout" v-else>
+        <!-- <button @click="emptyMarker">allo</button> -->
     </form>
 </template>
 
@@ -34,6 +35,7 @@
         computed: {
             ...Vuex.mapGetters([
                 'connected',
+                'login',
                 'latitude',
                 'longitude'
             ])
@@ -44,9 +46,12 @@
                 'changeConnected',
                 'changeLat',
                 'changeLon',
-                'changeGame'
+                'changeGame',
+                'addMarker',
+                'updateMap',
+                'updateMarkers'
             ]),
-            login () {
+            connection () {
                 LogModule.login(this.pseudo, this.password).then((response) => {
                     this.error = false
                     if(response !== true) {
@@ -55,10 +60,35 @@
                     } else {
                         this.changeLogin(this.pseudo)
                         this.changeConnected(response)
-                        navigator.geolocation.getCurrentPosition((position) => {
+
+                        navigator.geolocation.watchPosition((position) => {
                             this.changeLat(position.coords.latitude)
                             this.changeLon(position.coords.longitude)
+                            this.addMarker({
+                                markerLat: position.coords.latitude,
+                                markerLon: position.coords.longitude,
+                                message: this.login
+                            })
+
+                            DataModule.changePosition(this.login, position.coords.latitude, position.coords.longitude)
+                        
+                            this.updateMap()
                         });
+
+                        setInterval(() =>{
+                            DataModule.list().then((json) => {
+                                Object.keys(json.list).forEach((key) => {
+                                    this.addMarker({
+                                        markerLat: parseFloat(json.list[key].position[0]),
+                                        markerLon: parseFloat(json.list[key].position[1]),
+                                        message: json.list[key].id,
+                                        circle: json.list[key].blurred
+                                    })
+                                });
+                            })
+
+                            this.updateMarkers()
+                        }, 10000)
 
                         GameModule.status().then((json) => {
                             if(json.started) {

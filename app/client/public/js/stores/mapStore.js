@@ -40,10 +40,13 @@ let mutations = {
         }
     },
     UPDATE_MARKERS: (state) => {
+        console.log("j'update les markers")
         if(state.markersLayer) {
             state.markersLayer.clearLayers()
         }
-        state.markersLayer = L.layerGroup().addTo(state.map)
+        if(state.map) {
+            state.markersLayer = L.layerGroup().addTo(state.map)
+        }
         state.markers.forEach((marker) => {
             if(marker.circle) {
                 L.circle([marker.lat, marker.lon], {
@@ -57,22 +60,28 @@ let mutations = {
             } 
         })
     },
-    ADD_MARKER: (state, {markerLat, markerLon, message, circle}) => {
-        var bool = true
+    UPDATE_MARKER: (state, {index, newLat, newLon, newCirle}) => {
 
-        state.markers.map((elem) => {
-            if(elem.message === message) {
-                bool=false
-            }
-        })
-        if(bool) {
-            state.markers.push({
-                lat: markerLat,
-                lon: markerLon,
-                message: message,
-                circle: circle
-            })
+        console.log("j'essaye d'update le marker de ", index)
+
+        let marker = state.markers.filter(elem => elem.message === index)
+
+        if(newCirle) {
+            marker[0].circle = newCirle
         }
+
+        marker[0].lat = newLat
+        marker[0].lon = newLon
+    },
+    ADD_MARKER: (state, {markerLat, markerLon, message, circle}) => {
+
+        console.log("j'ajoute vraiment le marker de : ", message)
+        state.markers.push({
+            lat: markerLat,
+            lon: markerLon,
+            message: message,
+            circle: circle
+        })
     }
 }
 
@@ -84,8 +93,23 @@ let actions = {
     updateMarkers: (store) => {
         store.commit('UPDATE_MARKERS')
     },
+    updateMarker: (store, {index, newLat, newLon, newCirle}) => {
+        store.commit('UPDATE_MARKER', {index, newLat, newLon, newCirle})
+        store.commit('UPDATE_MARKERS')
+    },
     addMarker: (store, {markerLat, markerLon, message, circle}) => {
-        store.commit('ADD_MARKER', {markerLat, markerLon, message, circle})
+        if(store.state.markers.filter(elem => elem.message === message).length > 0) {
+            store.commit('UPDATE_MARKER', {
+                index: message, 
+                newLat: markerLat, 
+                newLon: markerLon, 
+                newCircle: circle
+            })
+            store.commit('UPDATE_MARKERS')
+        } else {
+            store.commit('ADD_MARKER', {markerLat, markerLon, message, circle})
+        }
+
     },
     changeMap: (store, map) => {
         store.commit('CHANGE_MAP', map)

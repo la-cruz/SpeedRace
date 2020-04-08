@@ -45,6 +45,7 @@
         methods: {
             ...Vuex.mapActions([
                 'changeGame',
+                'updateMarker',
                 'join'
             ]),
             createGame () {

@@ -5,7 +5,7 @@ class GeoResources {
         position=[],
         ttl=-1,
         url="",
-        blurred=true,
+        blurred=false,
         status="alive",
         trophies=[]
     ) {

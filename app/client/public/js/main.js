@@ -46,5 +46,5 @@ const router = new VueRouter({
 new Vue({
     el: "#app",
     router,
-    render: h => h(require('./App.vue').default),
+    render: h => h(require('./App.vue').default)
 });
