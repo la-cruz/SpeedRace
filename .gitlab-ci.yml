@@ -32,6 +32,6 @@ deploy:
     - cd ../
     - 'scp -r app/client/public/dist/ etudiant@192.168.75.28:'
     - 'scp -r app/server/ etudiant@192.168.75.28:'
-    - ssh etudiant@192.168.75.28 "screen -dm bash startSpring.sh && screen -dm bash startNode.sh && sudo service nginx restart"
+    - ssh etudiant@192.168.75.28 "screen -dm bash startSpring.sh && screen -dm bash startNode.sh && service nginx restart"
   only:
     - master
