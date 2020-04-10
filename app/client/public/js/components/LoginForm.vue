@@ -9,7 +9,6 @@
         </div>
         <input type="submit" value="Connexion" @click="connection" v-if="!connected">
         <input type="submit" value="Déconnexion" @click="logout" v-else>
-        <!-- <button @click="emptyMarker">allo</button> -->
     </form>
 </template>
 
@@ -29,7 +28,8 @@
                 pseudo: "",
                 password: "",
                 error: false,
-                errorMessage: ""
+                errorMessage: "",
+                loop: null
             }
         },
         computed: {
@@ -37,7 +37,8 @@
                 'connected',
                 'login',
                 'latitude',
-                'longitude'
+                'longitude',
+                'ttl'
             ])
         },
         methods: {
@@ -47,9 +48,14 @@
                 'changeLat',
                 'changeLon',
                 'changeGame',
+                'changeTargetPosition',
+                'changeStats',
                 'addMarker',
                 'updateMap',
-                'updateMarkers'
+                'updateMarkers',
+                'resetStats',
+                'getStats',
+                'join'
             ]),
             connection () {
                 LogModule.login(this.pseudo, this.password).then((response) => {
@@ -71,28 +77,50 @@
                             })
 
                             DataModule.changePosition(this.login, position.coords.latitude, position.coords.longitude)
-                        
                             this.updateMap()
                         });
 
-                        setInterval(() =>{
+                        this.loop = setInterval(() =>{
                             DataModule.list().then((json) => {
                                 Object.keys(json.list).forEach((key) => {
+
+                                    let player = json.list[key]
+
                                     this.addMarker({
-                                        markerLat: parseFloat(json.list[key].position[0]),
-                                        markerLon: parseFloat(json.list[key].position[1]),
-                                        message: json.list[key].id,
-                                        circle: json.list[key].blurred
+                                        markerLat: parseFloat(player.position[0]),
+                                        markerLon: parseFloat(player.position[1]),
+                                        message: player.id,
+                                        circle: player.blurred
                                     })
+
+                                    if(player.id === "target") {
+                                        this.changeTargetPosition({
+                                            newLat: player.position[0], 
+                                            newLon: player.position[1]
+                                        })
+                                    }
                                 });
                             })
 
+                            if(this.ttl !== -1) {
+                                this.changeStats({
+                                        ttl: this.ttl - 1,
+                                    updateServer: true
+                                })
+                            }
                             this.updateMarkers()
-                        }, 10000)
+                        }, 1000)
 
                         GameModule.status().then((json) => {
                             if(json.started) {
-                                 this.changeGame(true)
+                                console.log("la partie a commencé")
+                                this.changeGame(true)
+                            }
+
+                            if(json.geoRessources.list[this.login]) {
+                                console.log("la partie est déja rejointe")
+                                this.getStats()
+                                this.join()
                             }
                         })
 
@@ -104,8 +132,8 @@
             },
             logout () {
                 LogModule.logout().then((response) => {
-                    this.changeLogin("")
-                    this.changeConnected(response)
+                    clearInterval(this.loop)
+                    this.resetStats()
                 })
             }
         },

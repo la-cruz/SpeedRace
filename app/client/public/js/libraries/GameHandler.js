@@ -13,6 +13,14 @@ function stop() {
         })
 }
 
+function createTarget(lat, lon, auto) {
+    return AjaxRequest.putData('http://localhost:3000/admin/target', {
+        latitude: lat,
+        longitude: lon,
+        auto: auto
+    })
+}
+
 function status() {
     return AjaxRequest.getData('http://localhost:3000/admin/status')
         .then((response) => {
@@ -20,4 +28,4 @@ function status() {
         })
 }
 
-export default { start, stop, status }
+export default { start, stop, createTarget, status }

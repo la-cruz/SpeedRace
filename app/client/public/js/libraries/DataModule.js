@@ -8,7 +8,7 @@ function trophies(login) {
 }
 
 function stats(login) {
-    return AjaxRequest.getData('http://localhost:3000/api/resources/' + login)
+    return AjaxRequest.putData('http://localhost:3000/api/resources/' + login)
         .then((response) => {
             return response.json()
         })
@@ -19,6 +19,15 @@ function list() {
         .then((response) => {
             return response.json()
         })
+}
+
+function changeStats(login, ttl, role, status, trophies) {
+    return AjaxRequest.putData('http://localhost:3000/api/resources/' + login + '/update', {
+        ttl: ttl,
+        role: role,
+        status: status,
+        trophies: trophies
+    })
 }
 
 function changePosition(login, lat, lon) {
@@ -33,4 +42,4 @@ function changeImage(login, url) {
     })
 }
 
-export default { trophies, stats, list, changePosition, changeImage }
+export default { trophies, stats, list, changeStats, changePosition, changeImage }

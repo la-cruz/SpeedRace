@@ -48,18 +48,16 @@ authenticate(req.headers.authorization)
     })
 })
 
-router.get('/resources/:id', function (req, res) {
+router.put('/resources/:id', function (req, res) {
 authenticate(req.headers.authorization)
     .then(function(bool) {
         if(bool) {
-            console.log(game.isStarted())
             if(game.isStarted()) {
                 if(!game.getRessource(req.params.id)) {
                     game.addRessource(new geoResources(req.params.id))
                 }
                 res.send(game.getRessource(req.params.id))
             } else {
-                console.log("la partie n'a pas commencé")
                 res.send("The game isn't started")
             }
         } else {
@@ -129,6 +127,29 @@ authenticate(req.headers.authorization)
         } else {
             res.send("You're not connected")
         }
+    })
+})
+
+router.put('/resources/:id/update', function (req, res) {
+    authenticate(req.headers.authorization)
+    .then(function(bool) {
+        if(bool) {
+            if(game.isStarted()) {
+                if(game.getRessource(req.params.id)) {
+                    game.getRessource(req.params.id).ttl = req.query.ttl
+                    game.getRessource(req.params.id).role = req.query.role
+                    game.getRessource(req.params.id).status = req.query.status
+                    game.getRessource(req.params.id).trophies = req.query.trophies
+                    res.send('Stats updated for the user : ' + req.params.id)
+                } else {
+                    res.send('User not found')
+                }
+            } else {
+                res.send("The game isn't started")
+            }
+        } else {
+            res.send("You're not connected")
+        } 
     })
 })
 

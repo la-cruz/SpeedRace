@@ -3,6 +3,8 @@ import L from "leaflet"
 let state = {
     lat: 45.782,
     lon: 4.8656,
+    latTarget: 0,
+    lonTarget: 0,
     zoom: 15,
     map: null,
     markersLayer: null,
@@ -12,6 +14,8 @@ let state = {
 let getters = {
     latitude: state => state.lat,
     longitude: state => state.lon,
+    latitudeTarget: state => state.latTarget,
+    longitudeTarget: state => state.lonTarget,
     zoom: state => state.zoom,
     map: state => state.map,
     markersLayer: state => state.markersLayer,
@@ -24,6 +28,12 @@ let mutations = {
     },
     CHANGE_LON: (state, newLon) => {
         state.lon = newLon
+    },
+    CHANGE_LAT_TARGET: (state, newLat) => {
+        state.latTarget = newLat
+    },
+    CHANGE_LON_TARGET: (state, newLon) => {
+        state.lonTarget = newLon
     },
     CHANGE_ZOOM: (state, newZoom) => {
         state.zoom = newZoom
@@ -40,30 +50,37 @@ let mutations = {
         }
     },
     UPDATE_MARKERS: (state) => {
-        console.log("j'update les markers")
         if(state.markersLayer) {
             state.markersLayer.clearLayers()
+            var i
+            for(i in state.map._layers) {
+                if(state.map._layers[i]._path != undefined) {
+                    try {
+                        state.map.removeLayer(state.map._layers[i]);
+                    }
+                    catch(e) {
+                        console.log("problem with " + e + state.map._layers[i]);
+                    }
+                }
+            }
         }
         if(state.map) {
             state.markersLayer = L.layerGroup().addTo(state.map)
+            state.markers.forEach((marker) => {
+                if(marker.circle) {
+                    L.circle([marker.lat, marker.lon], {
+                        color: "red",
+                        fillColor: "#f03",
+                        fillOpacity: 0.5,
+                        radius: 200
+                    }).addTo(state.map).bindPopup(marker.message)
+                } else {
+                    L.marker([marker.lat, marker.lon]).addTo(state.markersLayer).bindPopup(marker.message)
+                } 
+            })
         }
-        state.markers.forEach((marker) => {
-            if(marker.circle) {
-                L.circle([marker.lat, marker.lon], {
-                    color: "red",
-                    fillColor: "#f03",
-                    fillOpacity: 0.5,
-                    radius: 200
-                }).addTo(state.map).bindPopup(marker.message)
-            } else {
-                L.marker([marker.lat, marker.lon]).addTo(state.markersLayer).bindPopup(marker.message)
-            } 
-        })
     },
     UPDATE_MARKER: (state, {index, newLat, newLon, newCirle}) => {
-
-        console.log("j'essaye d'update le marker de ", index)
-
         let marker = state.markers.filter(elem => elem.message === index)
 
         if(newCirle) {
@@ -74,8 +91,6 @@ let mutations = {
         marker[0].lon = newLon
     },
     ADD_MARKER: (state, {markerLat, markerLon, message, circle}) => {
-
-        console.log("j'ajoute vraiment le marker de : ", message)
         state.markers.push({
             lat: markerLat,
             lon: markerLon,
@@ -122,6 +137,10 @@ let actions = {
     },
     changeZoom: (store, newZoom) => {
         store.commit('CHANGE_ZOOM', newZoom)
+    },
+    changeTargetPosition: (store, {newLat, newLon}) => {
+        store.commit('CHANGE_LAT_TARGET', newLat)
+        store.commit('CHANGE_LON_TARGET', newLon)
     }
 }
 

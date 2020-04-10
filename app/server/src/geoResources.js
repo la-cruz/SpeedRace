@@ -3,7 +3,7 @@ class GeoResources {
         id,
         role="sane",
         position=[],
-        ttl=-1,
+        ttl=600,
         url="",
         blurred=false,
         status="alive",
