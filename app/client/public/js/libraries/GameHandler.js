@@ -28,4 +28,10 @@ function status() {
         })
 }
 
-export default { start, stop, createTarget, status }
+function win(player) {
+    return AjaxRequest.putData('http://localhost:3000/admin/win', {
+        player: player
+    })
+}
+
+export default { start, stop, createTarget, status, win }

@@ -92,6 +92,22 @@ router.put('/target', function (req, res) {
     })
 })
 
+router.put('/winner', function (req, res) {
+    authenticate(req.headers.authorization)
+    .then((bool) => {
+        if(bool) {
+            if(game.getRessource(req.query.player)) {
+                game.win(req.query.player)
+                res.send(req.query.player, " win the game")
+            } else {
+                res.send("The player doesn't exist")
+            }
+        } else {
+            res.send("You're not connected");
+        } 
+    })
+})
+
 router.get('/status', function (req, res) {
     authenticate(req.headers.authorization)
     .then((bool) => {

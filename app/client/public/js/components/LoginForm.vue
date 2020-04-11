@@ -29,7 +29,8 @@
                 password: "",
                 error: false,
                 errorMessage: "",
-                loop: null
+                loop: null,
+                watchPos: null
             }
         },
         computed: {
@@ -38,6 +39,9 @@
                 'login',
                 'latitude',
                 'longitude',
+                'latitudeTarget',
+                'longitudeTarget',
+                'markers',
                 'ttl'
             ])
         },
@@ -50,7 +54,9 @@
                 'changeGame',
                 'changeTargetPosition',
                 'changeStats',
+                'changeWinner',
                 'addMarker',
+                'removeMarker',
                 'updateMap',
                 'updateMarkers',
                 'resetStats',
@@ -67,7 +73,7 @@
                         this.changeLogin(this.pseudo)
                         this.changeConnected(response)
 
-                        navigator.geolocation.watchPosition((position) => {
+                        this.watchPos = navigator.geolocation.watchPosition((position) => {
                             this.changeLat(position.coords.latitude)
                             this.changeLon(position.coords.longitude)
                             this.addMarker({
@@ -75,6 +81,17 @@
                                 markerLon: position.coords.longitude,
                                 message: this.login
                             })
+
+                            let target = L.latLng(parseFloat(this.latitudeTarget), parseFloat(this.longitudeTarget))
+                            let playerPosition = L.latLng(parseFloat(this.latitude), parseFloat(this.longitude))
+
+                            if(target.distanceTo(playerPosition) < 200) {
+                                GameModule.win(this.login)
+                                this.changeStats({
+                                    status: "winner",
+                                    updateServer: true
+                                })
+                            }
 
                             DataModule.changePosition(this.login, position.coords.latitude, position.coords.longitude)
                             this.updateMap()
@@ -86,12 +103,22 @@
 
                                     let player = json.list[key]
 
-                                    this.addMarker({
-                                        markerLat: parseFloat(player.position[0]),
-                                        markerLon: parseFloat(player.position[1]),
-                                        message: player.id,
-                                        circle: player.blurred
-                                    })
+                                    if(player.status === "winner") {
+                                        this.changeWinner(player.id)
+                                        clearInterval(this.loop)
+                                        navigator.geolocation.clearWatch(this.watchPos)
+                                    }
+
+                                    if(player.status !== "dead"){
+                                        this.addMarker({
+                                            markerLat: parseFloat(player.position[0]),
+                                            markerLon: parseFloat(player.position[1]),
+                                            message: player.id,
+                                            circle: player.blurred
+                                        })
+                                    } else {
+                                        this.removeMarker(player.id)
+                                    }
 
                                     if(player.id === "target") {
                                         this.changeTargetPosition({
@@ -102,23 +129,29 @@
                                 });
                             })
 
-                            if(this.ttl !== -1) {
+                            if(this.ttl > 0) {
                                 this.changeStats({
-                                        ttl: this.ttl - 1,
+                                    ttl: this.ttl - 1,
                                     updateServer: true
                                 })
+
+                                if(this.ttl === 0) {
+                                    navigator.geolocation.clearWatch(this.watchPos)
+                                    this.changeStats({
+                                        status: "dead",
+                                        updateServer: true
+                                    })
+                                }
                             }
                             this.updateMarkers()
                         }, 1000)
 
                         GameModule.status().then((json) => {
                             if(json.started) {
-                                console.log("la partie a commencé")
                                 this.changeGame(true)
                             }
 
                             if(json.geoRessources.list[this.login]) {
-                                console.log("la partie est déja rejointe")
                                 this.getStats()
                                 this.join()
                             }

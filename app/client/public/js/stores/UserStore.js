@@ -1,4 +1,5 @@
 import DataModule from "../libraries/DataModule"
+import L from "leaflet"
 
 let state = {
     login: "",
@@ -7,6 +8,7 @@ let state = {
     role: "",
     status: "",
     trophies: [],
+    winner: "none",
     gameJoined: false,
     gameStarted: false
 }
@@ -18,6 +20,7 @@ let getters = {
     role: state => state.role,
     status: state => state.status,
     trophies: state => state.trophies,
+    winner : state => state.winner,
     gameJoined: state => state.gameJoined,
     gameStarted: state => state.gameStarted
 }
@@ -29,8 +32,11 @@ let mutations = {
     CHANGE_CONNECTED: (state, newConnected) => {
         state.connected = newConnected
     },
+    CHANGE_WINNER: (state, newWinner) => {
+        state.winner = newWinner
+    },
     CHANGE_STATS: (state, {ttl, role, status, trophies, updateServer}) => {
-        ttl ? state.ttl = ttl : ""
+        ttl !== undefined ? state.ttl = ttl : ""
         role ? state.role = role : ""
         status ? state.status = status : ""
         trophies ? state.trophies = trophies : ""
@@ -41,7 +47,6 @@ let mutations = {
     },
     GET_STATS: (state) => {
         DataModule.stats(state.login).then((json) => {
-            console.log("je prend ces stats : ", json)
             state.ttl = json.ttl
             state.role = json.role
             state.status = json.status
@@ -75,6 +80,9 @@ let actions = {
     },
     changeConnected: (store, newConnected) => {
         store.commit('CHANGE_CONNECTED', newConnected)
+    },
+    changeWinner: (store, newWinner) => {
+        store.commit('CHANGE_WINNER', newWinner)
     },
     changeStats: (store, {ttl, role, status, trophies, updateServer}) => {
         store.commit('CHANGE_STATS', {ttl, role, status, trophies, updateServer})

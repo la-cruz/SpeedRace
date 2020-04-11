@@ -19,7 +19,7 @@ let getters = {
     zoom: state => state.zoom,
     map: state => state.map,
     markersLayer: state => state.markersLayer,
-    markers: state => state.marker
+    markers: state => state.markers
 }
 
 let mutations = {
@@ -97,6 +97,9 @@ let mutations = {
             message: message,
             circle: circle
         })
+    },
+    REMOVE_MARKER: (state, message) => {
+        state.markers = state.markers.filter(elem => elem.message !== message)
     }
 }
 
@@ -125,6 +128,9 @@ let actions = {
             store.commit('ADD_MARKER', {markerLat, markerLon, message, circle})
         }
 
+    },
+    removeMarker: (store, message) => {
+        store.commit('REMOVE_MARKER', message)
     },
     changeMap: (store, map) => {
         store.commit('CHANGE_MAP', map)
