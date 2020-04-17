@@ -52,14 +52,12 @@ router.get('/resources/:id', function (req, res) {
 authenticate(req.headers.authorization)
     .then(function(bool) {
         if(bool) {
-            console.log(game.isStarted())
             if(game.isStarted()) {
                 if(!game.getRessource(req.params.id)) {
                     game.addRessource(new geoResources(req.params.id))
                 }
                 res.send(game.getRessource(req.params.id))
             } else {
-                console.log("la partie n'a pas commencé")
                 res.send("The game isn't started")
             }
         } else {

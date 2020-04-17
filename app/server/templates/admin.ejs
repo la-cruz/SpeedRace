@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game data</title>
+</head>
+<body>
+    <form action="/admin/ttl" method="POST">
+        <label for="ttl">TTL de base : </label><input id="ttl" name="ttl" type="text"/>
+        <input type="submit" value="Valider"/>
+    </form>
+    <form action="/admin/target" method="POST">
+        <label for="latitude">Latitude de la cible : </label><input id="latitude" name="latitude" step="0.001" type="number"/>
+        <label for="longitude">Longitude de la cible : </label><input id="longitude" name="longitude" step="0.001" type="number"/>
+        <input type="submit" value="Valider"/>
+    </form>
+    <form action="/admin/start" method="POST">
+        <label for="gameName">Nom de la partie : </label><input id="gameName" name="gameName" type="text"/>
+        <input type="submit" value="Commencer une partie" />
+    </form>
+    <ul>
+        <% errors.forEach(function(error){ %>
+            <li><%= error %></li>
+        <% }); %>
+    </ul>
+</body>
+</html>

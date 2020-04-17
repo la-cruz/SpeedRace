@@ -5,7 +5,9 @@ const port = 3376
 const apiRouter = require("./routes/api")
 const adminRouter = require("./routes/admin")
 
+app.set('view engine', 'ejs')
 app.use(cors())
+app.use(express.urlencoded())
 
 app.get('/', (req, res) => res.send('Hello World!'));
 app.use('/static', express.static('./public'));

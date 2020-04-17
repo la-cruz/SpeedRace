@@ -3,6 +3,8 @@ const router = express.Router()
 const axios = require('axios')
 const game = require("../src/game")
 
+const geoResources = require("../src/geoResources")
+
 function authenticate(jwt) {
     var bool = false;
 
@@ -26,6 +28,47 @@ function authenticate(jwt) {
         return bool;
     })
 }
+
+router.get('/', function (req, res) {
+    errors = []
+    res.render('../templates/admin.ejs', {
+        errors
+    })
+})
+
+router.post('/ttl', function (req, res) {
+    ttl = req.body.ttl;
+    errors = [] 
+    res.render('../templates/admin.ejs', {
+        errors
+    })
+})
+
+router.post('/target', function (req, res) {
+    errors = []
+    if(game.started) {
+        if(!game.getRessource('target')) {
+            game.addRessource(new geoResources('target'))
+        }
+        game.getRessource('target').position = [parseInt(req.body.latitude), parseInt(req.body.longitude)]
+    } else {
+        errors.push("La partie n'a pas commencée")
+    }
+    res.render('../templates/admin.ejs', {
+        errors
+    })
+})
+
+router.post('/start', function (req, res) {
+    errors = []
+
+    game.start()
+    game.name = req.body.gameName
+
+    res.render('../templates/admin.ejs', {
+        errors
+    })
+})
 
 router.put('/start', function (req, res) {
     authenticate(req.headers.authorization)

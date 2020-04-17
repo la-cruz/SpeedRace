@@ -1,9 +1,11 @@
+const baseTtl = require('./ttl')
+
 class GeoResources {
     constructor (
         id,
         role="sane",
         position=[],
-        ttl=-1,
+        ttl=gaseTtl,
         url="",
         blurred=true,
         status="alive",
