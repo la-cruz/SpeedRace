@@ -30,10 +30,8 @@ deploy:
     - mvn clean package
     - 'scp target/usersspringboot-0.0.1-SNAPSHOT.jar etudiant@192.168.75.28:'
     - cd ../
-    - 'scp -r simple-client/ etudiant@192.168.75.28:'
     - 'scp -r app/client/public/dist/ etudiant@192.168.75.28:'
     - 'scp -r app/server/ etudiant@192.168.75.28:'
-    - ssh etudiant@192.168.75.28 "java -jar usersspringboot-0.0.1-SNAPSHOT.jar &"
-    - 'exit'
+    - ssh etudiant@192.168.75.28 "screen -dm bash startSpring.sh && screen -dm bash startNode.sh"
   only:
     - master
