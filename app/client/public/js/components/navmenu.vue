@@ -1,12 +1,12 @@
 <template>
-    <nav class="main-nav">
+    <nav>
         <ul v-if="connected">
             <li><a href="/#/">Accueil</a></li>
             <li v-if="gameJoined"><a href="/#/game">Jeu</a></li>
             <li v-if="gameJoined"><a href="/#/stats">Statistique</a></li>
             <li v-if="gameJoined"><a href="/#/trophies">Trophée</a></li>
         </ul>
-
+        
         <login-form></login-form>
     </nav>
 </template>
@@ -31,39 +31,39 @@
 
 <style lang="scss">
     .main-nav {
-        width: 100vw;
-        height: 5rem;
-        display: flex;
-        justify-content: flex-start;
-        background-color: rgb(36, 33, 33);
-        position: fixed;
-        top: 0;
-        left: 0;
+        // width: 100vw;
+        // height: 5rem;
+        // display: flex;
+        // justify-content: flex-start;
+        // background-color: rgb(36, 33, 33);
+        // position: fixed;
+        // top: 0;
+        // left: 0;
 
-        ul {
-            margin-left: 3rem;
-            display: flex;
-            justify-content: space-between;
-            min-width: 30rem;
-            list-style: none;
-            height: 100%;
+        // ul {
+        //     margin-left: 3rem;
+        //     display: flex;
+        //     justify-content: space-between;
+        //     min-width: 30rem;
+        //     list-style: none;
+        //     height: 100%;
 
-            li {
-                text-transform: uppercase;
-                display: flex;
-                align-items: center;
+        //     li {
+        //         text-transform: uppercase;
+        //         display: flex;
+        //         align-items: center;
 
-                a {
-                    text-decoration: none;
-                    color: white;
-                    font-weight: bold;
-                    transition: 0.2s;
+        //         a {
+        //             text-decoration: none;
+        //             color: white;
+        //             font-weight: bold;
+        //             transition: 0.2s;
 
-                    &:hover {
-                        color: rgb(235, 231, 27)
-                    }
-                }
-            }
-        }
+        //             &:hover {
+        //                 color: rgb(235, 231, 27)
+        //             }
+        //         }
+        //     }
+        // }
     }
 </style>

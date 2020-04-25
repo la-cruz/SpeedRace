@@ -1,21 +1,18 @@
 <template>
-    <form class="login-form" @submit.prevent>
-        <div class="error" v-if="error">
-            {{ errorMessage }}
-        </div>
-        <div v-if="!connected">
-            <label>Login : </label><input type="text" v-model="pseudo">
-            <label>Mot de passe : </label><input type="password" v-model="password">
-        </div>
-        <input type="submit" value="Connexion" @click="connection" v-if="!connected">
-        <input type="submit" value="Déconnexion" @click="logout" v-else>
-    </form>
+    <v-form ref="form" @submit.prevent>
+        <v-alert backgroundColor="red" color="error" v-if="error">{{ errorMessage }}</v-alert>
+        <v-text-field v-bind="pseudo" label="Pseudo" color="black" required></v-text-field>
+        <v-text-field v-bind="password" label="Password" color="black" required></v-text-field>
+        <v-btn v-if="!connected"><input type="submit" value="Connexion" @click="connection"></v-btn>
+        <v-btn v-else><input type="submit" value="Déconnexion" @click="logout"></v-btn>
+    </v-form>
 </template>
 
 <script>
     import LogModule from '../libraries/Connect'
     import DataModule from '../libraries/DataModule'
     import GameModule from '../libraries/GameHandler'
+    import { VBtn, VAlert } from "vuetify/lib"
     import store from '../stores/store'
     import Vuex from 'vuex'
     import L from 'leaflet'
@@ -174,43 +171,39 @@
 </script>
 
 <style lang="scss">
-    .login-form {
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding-right: 1rem;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        color: white;
+    // .login-form {
+    //     position: absolute;
+    //     right: 0;
+    //     top: 0;
+    //     padding-right: 1rem;
+    //     height: 100%;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: space-evenly;
+    //     color: white;
 
-        .error {
-            position: absolute;
-            width: 100vw;
-            top: 5rem;
-            right: 0;
-            background-color: rgb(179, 13, 13);
-            text-align: center;
-            color: white;
-            padding: 2rem 0;
-            font-size: 1.5rem;
-        }
+    //     .error {
+    //         position: absolute;
+    //         width: 100vw;
+    //         top: 5rem;
+    //         right: 0;
+    //         background-color: rgb(179, 13, 13);
+    //         text-align: center;
+    //         color: white;
+    //         padding: 2rem 0;
+    //         font-size: 1.5rem;
+    //     }
 
-        label {
-            margin: 0 1rem;
-        }
+    //     label {
+    //         margin: 0 1rem;
+    //     }
         
-        input {
-            color: black;
+    //     input {
+    //         color: black;
+    //     }
 
-            &[type=submit] {
-                margin-left: 2rem;
-            }
-        }
-
-        div {
-            display: inline;
-        }
-    }
+    //     div {
+    //         display: inline;
+    //     }
+    // }
 </style>

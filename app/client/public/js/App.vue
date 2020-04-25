@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <v-app>
     <nav-menu></nav-menu>
     <router-view v-if="connected"></router-view>
     <home-page v-else></home-page>
     <div v-if="winner === login">Bravo, vous avez gagné</div>
     <div v-if="status === 'dead'">T'es mort lol</div>
     <div v-if="winner !== 'none' && winner !== login">Perdu, { winner } à gagné </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
