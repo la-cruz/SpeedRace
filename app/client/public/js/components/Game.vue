@@ -1,5 +1,5 @@
 <template>
-  <section class="game">
+  <section class="page game">
     <game-header message="MifMapApp"></game-header>
     <div class="game-view">
       <game-form title="Position"></game-form>

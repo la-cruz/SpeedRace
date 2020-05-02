@@ -189,14 +189,15 @@
 
         .error {
             position: absolute;
-            width: 100vw;
+            width: 80vw;
             top: 5rem;
-            right: 0;
             background-color: rgb(179, 13, 13);
             text-align: center;
             color: white;
             padding: 2rem 0;
             font-size: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
         }
 
         .input-container {

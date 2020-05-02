@@ -129,6 +129,10 @@
                     margin-top: 0;
                 }
             }
+
+            .btn {
+                width: 40%;
+            }
         }
 
         hr {
