@@ -1,9 +1,9 @@
 <template>
     <div class="container-settingsGame">
-        <game-header message="MifMapApp"></game-header>
-        <hr>
+        <!-- <game-header message="MifMapApp"></game-header> -->
         <game-stats-card></game-stats-card>
-        <!-- <game-form title="Position"></game-form> -->
+        <hr>
+        <game-form title="Position"></game-form>
     </div>
 </template>
 
@@ -40,7 +40,7 @@
             width: 80%;
             height: 4px;
             border: none;
-            margin: 2rem 0;
+            margin: 2rem 0 1rem 0;
             background-color: #FFCD00;
         }
     }

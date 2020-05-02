@@ -6,6 +6,9 @@ import L from "leaflet"
 import marker from 'leaflet/dist/images/marker-icon.png';
 import marker2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({

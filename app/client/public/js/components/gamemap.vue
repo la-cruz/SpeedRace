@@ -55,7 +55,7 @@
         width: 100%;
 
         #map {
-            height: 100vh;
+            height: calc(100vh - 5rem);
 	        width: 100%; 
         }
     }
