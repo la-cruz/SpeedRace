@@ -161,7 +161,7 @@ public class UserRestController {
 		@Parameter(description = "The user you want to delete", in = ParameterIn.PATH ) @PathVariable String userId
 	) {
 		Optional<User> optionalUser = users.get(userId); 
-		if(optionalUser.isEmpty()) users.delete(optionalUser.get());
+		if(!optionalUser.isEmpty()) users.delete(optionalUser.get());
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
