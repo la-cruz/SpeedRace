@@ -1,7 +1,6 @@
 import Vue from "vue/dist/vue.esm.browser"
 import Vuex from "vuex"
 import VueRouter from "vue-router"
-import vuetify from "./plugins/vuetify"
 import L from "leaflet"
 
 import marker from 'leaflet/dist/images/marker-icon.png';
@@ -47,6 +46,5 @@ const router = new VueRouter({
 new Vue({
     el: "#app",
     router,
-    vuetify,
     render: h => h(require('./App.vue').default)
 });

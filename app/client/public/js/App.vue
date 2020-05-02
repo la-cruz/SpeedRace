@@ -12,14 +12,13 @@
 <script>
   import NavMenu from "./components/NavMenu.vue"
   import HomePage from "./components/HomePage.vue"
-  import { VApp, VDialog } from "vuetify/lib"
   import store from "./stores/store"
   import Vuex from "vuex"
 
   export default {
       name: 'App',
       store: store,
-      components: { NavMenu, HomePage, VApp, VDialog },
+      components: { NavMenu, HomePage },
       computed: {
         ...Vuex.mapGetters([
           'connected',
