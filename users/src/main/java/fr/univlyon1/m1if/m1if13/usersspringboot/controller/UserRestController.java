@@ -99,7 +99,7 @@ public class UserRestController {
 			@ApiResponse(responseCode = "400", description = "Login or password blank")
 		}
 	)
-	@CrossOrigin(origins = {"http://localhost", "http://192.168.75.28", "https://192.168.75.28"})
+	@CrossOrigin(origins = {"http://localhost", "http://localhost:3376", "http://192.168.75.28", "https://192.168.75.28"})
 	@PostMapping(path = "/users", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE })
 	public ResponseEntity<Void> postUsers(
 		@Parameter(description = "The login of the user", in = ParameterIn.QUERY ) @RequestParam("login") String login,
