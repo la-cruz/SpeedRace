@@ -1,6 +1,6 @@
 <template>
-    <section>
-        <h2>{{ title }}</h2>
+    <section class="container-map">
+        <!-- <h2>{{ title }}</h2> -->
         <div id="map"></div>
     </section>
 </template>
@@ -49,6 +49,14 @@
     }
 </script>
 
-<style>
+<style lang="scss">
 
+    .container-map {
+        width: 100%;
+
+        #map {
+            height: 100vh;
+	        width: 100%; 
+        }
+    }
 </style>

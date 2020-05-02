@@ -41,11 +41,6 @@
 
   /* HTML5 display-role reset for older browsers */
 
-  h1 {
-  font-size: 5rem;
-  font-weight: bold;
-  }
-
   article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block; }
 

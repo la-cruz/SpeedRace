@@ -35,7 +35,6 @@
         width: 20%;
         border: rgb(235, 231, 27) solid 2px;
         border-radius: 10px;
-        margin-top: 7rem;
         align-self: center;
 
         .status {
