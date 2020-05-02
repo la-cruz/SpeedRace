@@ -35,36 +35,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script src="static/js/AjaxRequest.js"></script>
     <script>
-        // var listUser = null
+        var listUser = null
 
-        // function updateUserList() {
-        //     getData("http://192.168.75.28:8080/users")
-        //         .then((response) => {
-        //             return response.json()
-        //         }).then((json) => {
-        //             if(JSON.stringify(listUser) != JSON.stringify(json)) {
-        //                 listUser = json
-        //                 document.querySelector(".list-user").innerHTML = ""
-        //                 json.forEach((elem) => {
-        //                     getData(elem)
-        //                         .then((response) => {
-        //                             return response.json()
-        //                         }).then((json) => {
-        //                             var li = document.createElement("li")
-        //                             var name = document.createTextNode(json.login)
-        //                             var isConnected = json.connected
+        function updateUserList() {
+            getData("http://192.168.75.28:8080/users")
+                .then((response) => {
+                    return response.json()
+                }).then((json) => {
+                    if(JSON.stringify(listUser) != JSON.stringify(json)) {
+                        listUser = json
+                        document.querySelector(".list-user").innerHTML = ""
+                        json.forEach((elem) => {
+                            getData(elem)
+                                .then((response) => {
+                                    return response.json()
+                                }).then((json) => {
+                                    var li = document.createElement("li")
+                                    var name = document.createTextNode(json.login)
+                                    var crossBtn = document.createElement("button")
+                                    var cross = document.createTextNode("X")
+                                    var isConnected = json.connected
 
-        //                             li.appendChild(name)
-        //                             document.querySelector(".list-user").appendChild(li)
-        //                         })
-        //                 })
-        //             }
-        //         })
-        // }
+                                    crossBtn.addEventListener("click", (e) => {
+                                        deleteUser(json.login)
+                                    })
 
-        // setInterval(() => {
-        //     updateUserList()
-        // }, 1000);
+                                    
+                                    crossBtn.appendChild(cross)
+                                    li.appendChild(name)
+                                    li.appendChild(crossBtn)
+                                    document.querySelector(".list-user").appendChild(li)
+                                })
+                        })
+                    }
+                })
+        }
+
+        setInterval(() => {
+            updateUserList()
+        }, 1000);
+
+        function deleteUser(login) {
+            deleteData("http://192.168.75.28:8080/users/" + login)
+        }
     </script>
 </body>
 </html>
