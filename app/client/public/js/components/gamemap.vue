@@ -30,21 +30,6 @@
                 id: 'mapbox.streets'
             }).addTo(this.map);
 
-            DataModule.list().then((data) => {
-                Object.values(data.list).map((elem) => {
-                    if(elem.position.length > 0) {
-                        this.addMarker({
-                            markerLat: parseFloat(elem.position[0]),
-                            markerLon: parseFloat(elem.position[1]),
-                            message: elem.id,
-                            circle: elem.blurred
-                        })
-                    }
-                })
-
-                this.updateMap()
-            })
-
             this.updateMap()
         },
         methods: {
