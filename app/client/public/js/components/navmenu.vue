@@ -33,7 +33,7 @@
         width: 100vw;
         height: 5rem;
         display: flex;
-        justify-content: flex-start;
+        justify-content: flex-end;
         background-color: rgb(32, 32, 32);
         position: fixed;
         top: 0;

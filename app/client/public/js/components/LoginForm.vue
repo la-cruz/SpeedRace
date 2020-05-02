@@ -1,5 +1,5 @@
 <template>
-    <form class="login-form" @submit.prevent>
+    <form class="login-form" v-bind:class="{ disconnected : connected }" @submit.prevent>
         <div class="error" v-if="error">
             {{ errorMessage }}
         </div>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <input type="submit" class="btn" value="Connexion" @click="connection" v-if="!connected">
-        <input type="submit" value="Déconnexion" @click="logout" v-else>
+        <input type="submit" value="Déconnexion" class="btn-logout" @click="logout" v-else>
     </form>
 </template>
 
@@ -209,7 +209,6 @@
                 display: flex;
                 flex-direction: column-reverse;
             }
-
         }
 
         label {
@@ -224,6 +223,30 @@
             color: black;
             width: 100%;
             font-size: 1.5rem;
+        }
+
+        &.disconnected {
+            width: max-content;
+
+            .btn-logout {
+                background-color: #FFCD00;
+                width: max-content;
+                font-size: 1.2rem;
+                color: white;
+                border: none;
+                border-radius: 50px;
+                text-transform: uppercase;
+                transition: 0.5s;
+                outline: none;
+                margin: 0 3rem;
+                padding: 0.8rem 1rem;
+                box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+
+                &:hover {
+                    transform: scale(1.05);
+                    transition: 0.5s;
+                }
+            }
         }
     }
 </style>
