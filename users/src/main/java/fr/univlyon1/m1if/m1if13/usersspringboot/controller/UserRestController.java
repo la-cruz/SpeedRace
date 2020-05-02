@@ -155,6 +155,7 @@ public class UserRestController {
 			@ApiResponse(responseCode = "200", description = "The user has been deleted"),
 		}
 	)
+	@CrossOrigin(origins = {"http://localhost", "http://localhost:3376", "http://192.168.75.28", "https://192.168.75.28"})
 	@DeleteMapping(path = "/users/{userId}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE })
 	public ResponseEntity<Void> deleteUser(
 		@Parameter(description = "The user you want to delete", in = ParameterIn.PATH ) @PathVariable String userId
