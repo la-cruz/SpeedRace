@@ -51,7 +51,7 @@ public class UserRestController {
 			@ApiResponse(responseCode = "204", description = "There is no user")
 		}
 	)
-	@CrossOrigin(origins = {"http://localhost", "http://192.168.75.28", "https://192.168.75.28"})
+	@CrossOrigin(origins = {"http://localhost", "http://localhost:3376", "http://192.168.75.28", "https://192.168.75.28"})
 	@GetMapping(path = "/users", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<Set<String>> getUsers(
 		@Parameter(description = "The host uri", in = ParameterIn.HEADER) @RequestHeader("host") String host
