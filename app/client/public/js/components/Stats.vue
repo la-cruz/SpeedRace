@@ -1,7 +1,7 @@
 <template>
     <section class="page statistique">
         <div class="container-statistique">
-            <h1>Statistique de {{ login }}</h1>
+            <h1><font-awesome-icon icon="chart-bar" />Statistique de {{ login }}</h1>
             <hr>
             <ul>
                 <li><span>Role :</span> {{ stats.role }}</li>
@@ -24,6 +24,9 @@
     import store from '../stores/store'
     import Vuex from 'vuex'
     import DataModule from '../libraries/DataModule'
+    import { library } from '@fortawesome/fontawesome-svg-core'
+    import { faChartBar } from '@fortawesome/free-solid-svg-icons'
+    library.add(faChartBar)
 
     export default {
         name: 'Stats',
@@ -80,6 +83,11 @@
                 text-transform: uppercase;
                 font-weight: bold;
                 text-align: center;
+
+                svg {
+                    color: #FFCD00;
+                    margin-right: 1rem;
+                }
             }
 
             hr {
@@ -122,6 +130,14 @@
                     font-size: 1.1rem;
                     text-transform: uppercase;
                     font-weight: bold;
+                }
+
+                input {
+                    color: black;
+                    border: solid 2px rgba(56, 56, 56, 0.5);
+                    border-radius: 10px;
+                    outline: none;
+                    padding: 0.5rem 0.5rem;
                 }
     
                 button {
