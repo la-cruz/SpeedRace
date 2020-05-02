@@ -1,6 +1,6 @@
 <template>
     <section class="home-page">
-        <h1>COVID - 19</h1>
+        <h1>Speed Race</h1>
         <p> Connectez vous pour lancez une partie</p>
     </section>
 </template>

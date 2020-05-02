@@ -9,6 +9,7 @@ class Game {
         this.started = started
         this.startDate = null
         this.geoRessources = List
+        this.winner = ""
     }
 
     addRessource(id) {
@@ -25,6 +26,10 @@ class Game {
 
     isStarted() {
         return this.started
+    }
+
+    win(player) {
+        this.winner = player
     }
 
     start() {

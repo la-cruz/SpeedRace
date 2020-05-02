@@ -1,8 +1,8 @@
 <template>
   <aside class="stats-card">
       <h2>{{ login }}</h2>
-      <p class="status">{{ stats.status }}</p>
-      <span class="ttl">{{ stats.ttl }}</span>
+      <p class="status">{{ status }}</p>
+      <span class="ttl">{{ ttl }}</span>
   </aside>
 </template>
 
@@ -14,22 +14,13 @@
     export default {
         name: 'GameStatsCard',
         store,
-        data: function () {
-            return {
-                stats: {}
-            }
-        },
         computed: {
             ...Vuex.mapGetters([
-                'login'
+                'login',
+                'ttl',
+                'status'
             ])
-        },
-        created() {
-            DataModule.stats(this.login)
-            .then((response) => {
-                this.stats = response
-            })
-        },
+        }
     }
 </script>
 

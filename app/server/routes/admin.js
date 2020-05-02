@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const axios = require('axios')
 const game = require("../src/game")
+const geoResources = require("../src/geoResources")
 
 function authenticate(jwt) {
     var bool = false;
@@ -49,6 +50,61 @@ router.put('/stop', function (req, res) {
         } else {
             res.send("You're not connected")
         }
+    })
+})
+
+router.put('/target', function (req, res) {
+    authenticate(req.headers.authorization)
+    .then((bool) => {
+        if(bool) {
+            let position = []
+            if(req.query.auto) {
+                position[0] = parseFloat(req.query.latitude) + ((Math.random() - 0.5)/10)
+                position[1] = parseFloat(req.query.longitude) + ((Math.random() - 0.5)/10)
+            } else {
+                position[0] = parseFloat(req.query.latitude)
+                position[1] = parseFloat(req.query.longitude)
+            }
+
+            if(game.getRessource("target")) {
+                game.getRessource("target").position = position
+
+                res.send("Target has been updated")
+            } else {
+                game.addRessource(
+                    new geoResources(
+                        'target', 
+                        'sane', 
+                        position,
+                        -1,
+                        "",
+                        true,
+                        "target",
+                        []
+                    )
+                )
+
+                res.send("Target has been created")
+            }
+        } else {
+            res.send("You're not connected")
+        }
+    })
+})
+
+router.put('/winner', function (req, res) {
+    authenticate(req.headers.authorization)
+    .then((bool) => {
+        if(bool) {
+            if(game.getRessource(req.query.player)) {
+                game.win(req.query.player)
+                res.send(req.query.player, " win the game")
+            } else {
+                res.send("The player doesn't exist")
+            }
+        } else {
+            res.send("You're not connected");
+        } 
     })
 })
 

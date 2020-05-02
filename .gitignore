@@ -108,7 +108,7 @@ web_modules/
 
 *.DS_Store
 
-app/client/public/dist
+app/client/public/dist/
 
 # userspringboot
 usersspringboot/.classpath

@@ -13,6 +13,14 @@ function stop() {
         })
 }
 
+function createTarget(lat, lon, auto) {
+    return AjaxRequest.putData('http://192.168.75.28:3376/admin/target', {
+        latitude: lat,
+        longitude: lon,
+        auto: auto
+    })
+}
+
 function status() {
     return AjaxRequest.getData('http://192.168.75.28:3376/admin/status')
         .then((response) => {
@@ -20,4 +28,10 @@ function status() {
         })
 }
 
-export default { start, stop, status }
+function win(player) {
+    return AjaxRequest.putData('http://192.168.75.28:3376/admin/win', {
+        player: player
+    })
+}
+
+export default { start, stop, createTarget, status, win }

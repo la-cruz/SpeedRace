@@ -5,7 +5,8 @@
             <div v-if="!gameStarted">
                 <label for="name"> Nom de la partie :</label><input type="text" v-model="name" />
             </div>
-            <input type="submit" :value="textBtn" @click="createGame" />
+            <input type="submit" :value="textBtn" @click="createGame" v-if="!gameJoined"/>
+            <a href="/#/game" v-else>Allez à la map</a>
         </form>
     </section>
 </template>
@@ -24,12 +25,6 @@
                 name: "",
             }
         },
-        props: {
-            title: {
-                type: String, 
-                default: "Creer une partie",
-            }
-        },
         computed: {
             ...Vuex.mapGetters([
                 'login',
@@ -40,12 +35,18 @@
             ]),
             textBtn () {
                 return this.gameStarted ? "Rejoindre la partie" : "Commencer la partie"
+            },
+            title () {
+                return this.gameStarted ? "Rejoindre la partie" : "Créer la partie"
             }
         },
         methods: {
             ...Vuex.mapActions([
                 'changeGame',
-                'join'
+                'changeStats',
+                'updateMarker',
+                'join',
+                'getStats'
             ]),
             createGame () {
                 if(!this.gameStarted) {
@@ -55,12 +56,18 @@
                         DataModule.stats(this.login).then((response) => {
                             DataModule.changePosition(response.id, this.latitude, this.longitude)
                         })
+                        console.log("je vais prendre les stats")
+                        this.getStats()
+                        GameHandler.createTarget(this.latitude, this.longitude, true)
                     })
                 } else {
-                    this.join()
-                    DataModule.stats(this.login).then((response) => {
-                        DataModule.changePosition(response.id, this.latitude, this.longitude)
-                    })
+                    if(!this.gameJoined) {
+                        this.getStats()
+                        this.join()
+                        DataModule.stats(this.login).then((response) => {
+                            DataModule.changePosition(response.id, this.latitude, this.longitude)
+                        })
+                    }
                 }
             }
         }

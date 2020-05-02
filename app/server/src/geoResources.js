@@ -3,9 +3,9 @@ class GeoResources {
         id,
         role="sane",
         position=[],
-        ttl=-1,
+        ttl=600,
         url="",
-        blurred=true,
+        blurred=false,
         status="alive",
         trophies=[]
     ) {
