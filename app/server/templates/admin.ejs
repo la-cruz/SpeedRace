@@ -35,8 +35,17 @@
     <script>
         function updateUserList() {
             getData("http://192.168.75.28:8080/users")
-                .then((json) => {
-                    console.log(json)
+                .then((response) => {
+                    return response.json()
+                }).then((json) => {
+                    json.forEach((elem) => {
+                        getData(elem)
+                            .then((response) => {
+                                return response.json()
+                            }).then((json) => {
+                                console.log(json)
+                            })
+                    })
                 })
         }
 
