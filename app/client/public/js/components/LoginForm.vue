@@ -3,11 +3,17 @@
         <div class="error" v-if="error">
             {{ errorMessage }}
         </div>
-        <div v-if="!connected">
-            <label>Login : </label><input type="text" v-model="pseudo">
-            <label>Mot de passe : </label><input type="password" v-model="password">
+        <div v-if="!connected" class="input-container">
+            <div class="reverse-input">
+                <input type="text" v-model="pseudo">
+                <label>Login : </label>
+            </div>
+            <div class="reverse-input">
+                <input type="password" v-model="password">
+                <label>Mot de passe : </label>
+            </div>
         </div>
-        <input type="submit" value="Connexion" @click="connection" v-if="!connected">
+        <input type="submit" class="btn" value="Connexion" @click="connection" v-if="!connected">
         <input type="submit" value="Déconnexion" @click="logout" v-else>
     </form>
 </template>
@@ -175,15 +181,11 @@
 
 <style lang="scss">
     .login-form {
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding-right: 1rem;
-        height: 100%;
+        width: 100%;
         display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        justify-content: space-evenly;
-        color: white;
 
         .error {
             position: absolute;
@@ -197,20 +199,46 @@
             font-size: 1.5rem;
         }
 
-        label {
-            margin: 0 1rem;
+        .input-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            .reverse-input {
+                display: flex;
+                flex-direction: column-reverse;
+
+                input {
+                    border: solid 2px rgba(56, 56, 56, 0.5);
+                    border-radius: 10px;
+                    outline: none;
+                    padding: 0.5rem 0;
+                    text-align: center;
+
+                    &:focus-within {
+                        border-color: #FFCD00;
+
+                        + label {
+                            color: #FFCD00;
+                        }
+                    }
+                }
+            }
+
         }
-        
+
+        label {
+            color: rgb(56, 56, 56);
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
         input {
             color: black;
-
-            &[type=submit] {
-                margin-left: 2rem;
-            }
-        }
-
-        div {
-            display: inline;
+            width: 100%;
+            font-size: 1.5rem;
         }
     }
 </style>

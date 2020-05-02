@@ -1,34 +1,75 @@
 <template>
     <section class="home-page">
-        <h1>Speed Race</h1>
-        <p> Connectez vous pour lancez une partie</p>
+        <div class="container-login">
+            <!-- <h1>Speed Race</h1> -->
+            <p> Connectez vous pour lancez une partie</p>
+            <hr>
+            <login-form></login-form>
+        </div>
     </section>
 </template>
 
 <script>
+    import LoginForm from './LoginForm.vue'
+    import store from '../stores/store'
+    import Vuex from 'vuex'
+
     export default {
-        name: 'HomePage'
+        name: 'HomePage',
+        store: store,
+        components: { LoginForm },
+        computed: {
+            ...Vuex.mapGetters([
+                'connected',
+                'gameJoined'
+            ])
+        },
     }
 </script>
 
 <style lang="scss">
     .home-page {
         width: 100%;
-        padding-top: 5rem;
         display: flex;
-        height: calc(100vh - 5rem);
+        height: calc(100vh);
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        background-color: rgb(56, 56, 56);
 
-        h1 {
-            font-size: 5rem;
-            font-weight: bold;
+        .container-login {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+            padding: 1rem 3rem;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+
+            h1 {
+                font-size: 3rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: rgb(56, 56, 56);
+            }
+    
+            p {
+                margin: 2rem 0;
+                font-size: 1.2rem;
+                color: rgb(56, 56, 56);
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+
+            hr {
+                width: 80%;
+                height: 4px;
+                border: none;
+                margin-bottom: 1rem;
+                background-color: #FFCD00;
+            }
         }
 
-        p {
-            margin-top: 2rem;
-            font-size: 2rem;
-        }
     }
 </style>

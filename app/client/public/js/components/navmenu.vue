@@ -1,12 +1,11 @@
 <template>
-    <nav class="main-nav">
+    <nav class="main-nav" v-if="connected">
         <ul v-if="connected">
             <li><a href="/#/">Accueil</a></li>
             <li v-if="gameJoined"><a href="/#/game">Jeu</a></li>
             <li v-if="gameJoined"><a href="/#/stats">Statistique</a></li>
             <li v-if="gameJoined"><a href="/#/trophies">Trophée</a></li>
         </ul>
-
         <login-form></login-form>
     </nav>
 </template>
@@ -60,7 +59,7 @@
                     transition: 0.2s;
 
                     &:hover {
-                        color: rgb(235, 231, 27)
+                        color: #FFCD00;
                     }
                 }
             }
