@@ -34,10 +34,11 @@
         height: 5rem;
         display: flex;
         justify-content: flex-start;
-        background-color: rgb(36, 33, 33);
+        background-color: rgb(32, 32, 32);
         position: fixed;
         top: 0;
         left: 0;
+        box-shadow: 0 13px 20px -27px #fff;
 
         ul {
             margin-left: 3rem;
@@ -57,6 +58,7 @@
                     color: white;
                     font-weight: bold;
                     transition: 0.2s;
+                    font-size: 1.3rem;
 
                     &:hover {
                         color: #FFCD00;

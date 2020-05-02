@@ -5,11 +5,11 @@
         </div>
         <div v-if="!connected" class="input-container">
             <div class="reverse-input">
-                <input type="text" v-model="pseudo">
+                <input type="text" class="input-text" v-model="pseudo">
                 <label>Login : </label>
             </div>
             <div class="reverse-input">
-                <input type="password" v-model="password">
+                <input type="password" class="input-text" v-model="password">
                 <label>Mot de passe : </label>
             </div>
         </div>
@@ -207,22 +207,6 @@
             .reverse-input {
                 display: flex;
                 flex-direction: column-reverse;
-
-                input {
-                    border: solid 2px rgba(56, 56, 56, 0.5);
-                    border-radius: 10px;
-                    outline: none;
-                    padding: 0.5rem 0;
-                    text-align: center;
-
-                    &:focus-within {
-                        border-color: #FFCD00;
-
-                        + label {
-                            color: #FFCD00;
-                        }
-                    }
-                }
             }
 
         }
