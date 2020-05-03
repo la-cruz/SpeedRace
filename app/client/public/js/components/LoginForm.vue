@@ -130,6 +130,7 @@
                                     }
 
                                     if(player.id === "target") {
+                                        console.log(player)
                                         this.changeTargetPosition({
                                             newLat: player.position[0],
                                             newLon: player.position[1]
