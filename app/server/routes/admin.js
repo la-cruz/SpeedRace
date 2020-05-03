@@ -30,7 +30,7 @@ function authenticate(jwt) {
 
 router.get('/', function (req, res) {
     errors = []
-    res.render('admin', {
+    res.render('admin.ejs', {
         errors
     })
 })
@@ -38,7 +38,7 @@ router.get('/', function (req, res) {
 router.post('/ttl', function (req, res) {
     ttl = req.body.ttl;
     errors = [] 
-    res.render('admin', {
+    res.render('admin.ejs', {
         errors
     })
 })
@@ -53,7 +53,7 @@ router.post('/target', function (req, res) {
     } else {
         errors.push("La partie n'a pas commencée")
     }
-    res.render('admin', {
+    res.render('admin.ejs', {
         errors
     })
 })
@@ -64,7 +64,7 @@ router.post('/start', function (req, res) {
     game.start()
     game.name = req.body.gameName
 
-    res.render('admin', {
+    res.render('admin.ejs', {
         errors
     })
 })
