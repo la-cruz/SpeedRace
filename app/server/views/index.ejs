@@ -52,15 +52,17 @@
                                     var name = document.createTextNode(json.login)
                                     var crossBtn = document.createElement("button")
                                     var cross = document.createTextNode("X")
-                                    var isConnected = json.connected
+                                    var connectedBox = document.createElement("span")
+
+                                    if(json.connected) connectedBox.classList.add("connected")
 
                                     crossBtn.addEventListener("click", (e) => {
                                         deleteUser(json.login)
                                     })
 
-                                    
                                     crossBtn.appendChild(cross)
                                     li.appendChild(name)
+                                    li.appendChild(connectedBox)
                                     li.appendChild(crossBtn)
                                     document.querySelector(".list-user").appendChild(li)
                                 })
