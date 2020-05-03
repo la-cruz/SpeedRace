@@ -150,10 +150,7 @@ router.put('/winner', function (req, res) {
 })
 
 router.get('/status', function (req, res) {
-    authenticate(req.headers.authorization)
-    .then((bool) => {
-        bool ? res.send(game) : res.send("You're not connected");
-    })
+    res.send(game)
 })
 
 module.exports = router
