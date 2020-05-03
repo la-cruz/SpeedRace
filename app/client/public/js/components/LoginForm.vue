@@ -106,6 +106,7 @@
                         });
 
                         this.loop = setInterval(() =>{
+                            console.log("je suis dans la boucle")
                             DataModule.list().then((json) => {
                                 Object.keys(json.list).forEach((key) => {
 
@@ -129,8 +130,9 @@
                                     }
 
                                     if(player.id === "target") {
+                                        console.log(player)
                                         this.changeTargetPosition({
-                                            newLat: player.position[0], 
+                                            newLat: player.position[0],
                                             newLon: player.position[1]
                                         })
                                     }
@@ -145,6 +147,7 @@
 
                                 if(this.ttl === 0) {
                                     navigator.geolocation.clearWatch(this.watchPos)
+                                    clearInterval(this.loop)
                                     this.changeStats({
                                         status: "dead",
                                         updateServer: true
@@ -175,7 +178,9 @@
             },
             logout () {
                 LogModule.logout().then((response) => {
+                    console.log("ARRETE TOI PUTAIN DE BOUCLE")
                     clearInterval(this.loop)
+                    console.log("elle est sensé s'etre arreté")
                     this.resetStats()
                 })
             },
