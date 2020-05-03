@@ -58,7 +58,6 @@
                         DataModule.stats(this.login).then((response) => {
                             DataModule.changePosition(response.id, this.latitude, this.longitude)
                         })
-                        console.log("je vais prendre les stats")
                         this.getStats()
                         GameHandler.createTarget(this.latitude, this.longitude, true)
                     })

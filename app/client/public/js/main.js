@@ -2,6 +2,7 @@ import Vue from "vue/dist/vue.esm.browser"
 import Vuex from "vuex"
 import VueRouter from "vue-router"
 import L from "leaflet"
+import VueSweetalert2 from 'vue-sweetalert2';
 
 import marker from 'leaflet/dist/images/marker-icon.png';
 import marker2x from 'leaflet/dist/images/marker-icon-2x.png';
@@ -19,6 +20,7 @@ L.Icon.Default.mergeOptions({
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
+Vue.use(VueSweetalert2)
 
 const router = new VueRouter({
     mode: "hash",
