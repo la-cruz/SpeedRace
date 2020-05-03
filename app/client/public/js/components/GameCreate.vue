@@ -89,6 +89,11 @@
             text-transform: uppercase;
             color: white;
             padding-bottom: 1rem;
+            text-align: center;
+
+            @media (max-width: 576px) { 
+                font-size: 2rem;
+            }
         }
 
         .create-game {
@@ -103,6 +108,10 @@
                 width: 40%;
                 display: flex;
                 flex-direction: column-reverse;
+
+                @media (max-width: 992px) { 
+                    width: 80%;
+                }
             }
     
             label {
@@ -117,6 +126,10 @@
                 color: black;
                 width: 100%;
                 font-size: 1.5rem;
+
+                @media (max-width: 992px) { 
+                    
+                 }
             }
     
             a {
@@ -126,12 +139,27 @@
                     padding: 1rem 3rem;
                     width: max-content;
                     margin-top: 0;
+
+                    @media (max-width: 576px) { 
+                        font-size: 1.3rem;
+                    }
                 }
             }
 
             .btn {
                 width: 40%;
+
+                @media (max-width: 576px) { 
+                    font-size: 1rem;
+                    padding: 0.8rem 1rem;
+                }
+
+                @media (max-width: 992px) { 
+                    width: 80%;
+                }
             }
+
+            
         }
 
         hr {

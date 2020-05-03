@@ -1,1 +1,19 @@
-$color-base: rgb(235, 231, 27)
+@mixin extra-small {
+    @media (min-width: 576px) { @content; }
+}
+
+@mixin small {
+    @media (max-width: 576px) { @content; }
+}
+
+@mixin medium {
+    @media (max-width: 768px) { @content; }
+}
+
+@mixin large {
+    @media (max-width: 992px) { @content; }
+}
+
+@mixin extra-large {
+    @media (max-width: 1200px) { @content; }
+}

@@ -63,7 +63,7 @@
 
 <style lang="scss">
     .statistique {
-        height: calc(100vh - 5rem);
+        min-height: calc(100vh - 5rem);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -130,6 +130,10 @@
                     font-size: 1.1rem;
                     text-transform: uppercase;
                     font-weight: bold;
+
+                    @media (max-width: 576px) { 
+                        margin: 0.5rem 0;
+                    }
                 }
 
                 input {
@@ -151,7 +155,21 @@
                     padding: 0.8rem 1rem;
                     margin-left: 1rem;
                     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+
+                    @media (max-width: 576px) { 
+                        margin: 0.5rem 0;
+                    }
                 }
+
+                @media (max-width: 576px) { 
+                    flex-direction: column;
+                }
+            }
+
+            @media (max-width: 768px) { 
+                width: 80%;
+                padding: 1rem 1rem;
+                margin: 2rem 0 1rem 0;
             }
         }
     }
