@@ -30,7 +30,7 @@ function authenticate(jwt) {
 
 router.get('/', function (req, res) {
     errors = []
-    res.render('admin', {
+    res.render('admin.ejs', {
         errors
     })
 })
