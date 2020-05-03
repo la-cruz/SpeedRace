@@ -9,14 +9,14 @@
     <div class="container-admin">
         <h1>Partie Admin</h1>
         <hr>
-        <form action="/admin/ttl" method="POST">
+        <form action="/admin/ttl" method="POST" name="update-ttl" target="dummyframe">
             <div class="reverse-input">
                 <input class="input-admin" id="ttl" name="ttl" type="text"/>
                 <label for="ttl">TTL de base : </label>
             </div>
-            <input class="btn-admin" type="submit" value="Valider"/>
+            <input class="btn-admin" type="reset" value="Valider" onclick='document.forms["update-ttl"].submit()'//>
         </form>
-        <form action="/admin/target" method="POST">
+        <form action="/admin/target" method="POST" name="update-target" target="dummyframe">
             <div class="reverse-input">
                 <input class="input-admin" id="latitude" name="latitude" step="0.001" type="number"/>
                 <label for="latitude">Latitude de la cible : </label>
@@ -25,14 +25,15 @@
                 <input class="input-admin" id="longitude" name="longitude" step="0.001" type="number"/>
                 <label for="longitude">Longitude de la cible : </label>
             </div>
-            <input class="btn-admin" type="submit" value="Valider"/>
+            <input class="btn-admin" type="reset" value="Valider" onclick='document.forms["update-target"].submit()'//>
         </form>
-        <form action="/admin/start" method="POST">
+        <form action="/admin/start" method="POST" name="start-game" target="dummyframe">
             <div class="reverse-input">
                 <input class="input-admin" id="gameName" name="gameName" type="text"/>
                 <label for="gameName">Nom de la partie : </label>
             </div>
-            <input class="btn-admin" type="submit" value="Commencer une partie" />
+            <input class="btn-admin" type="reset" value="Commencer une partie" onclick='document.forms["start-game"].submit()'/>
+            <div class="game-preview">Nom : <p></p> /  Commencé : <span></span></div>
         </form>
         <form action="http://192.168.75.28:8080/users" method="POST" name="create-user" target="dummyframe">
             <div class="reverse-input">
@@ -58,9 +59,12 @@
         </ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-    <script src="static/js/AjaxRequest.js"></script>
+    <script src="/static/js/AjaxRequest.js"></script>
     <script>
         var listUser = null
+        var ttl = null
+        var gameName = null
+        var started = null
 
         function updateUserList() {
             getData("http://192.168.75.28:8080/users")
@@ -98,8 +102,26 @@
                 })
         }
 
+        function updateData() {
+            getData("http://192.168.75.28:3376/admin/status")
+                .then((response) => {
+                    return response.json()
+                }).then((json) => {
+                    console.log(json)
+                    console.log(gameName)
+                    if(json.name !== gameName || json.started !== started) {
+                        gameName = json.name
+                        started = json.started
+                        document.querySelector(".game-preview > p").innerHTML = gameName
+                        document.querySelector(".game-preview > span").className = started
+                        console.log("j'ai update")
+                    }
+                })
+        }
+
         setInterval(() => {
             updateUserList()
+            updateData()
         }, 1000);
 
         function deleteUser(login) {
@@ -232,5 +254,40 @@
             outline: none;
         }
 
+        .game-preview {
+            margin-left: 1rem;
+            display: flex;
+            align-items: center;
+            color: rgb(56, 56, 56);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .game-preview p {
+            margin: 0 1rem;
+            color: rgb(56, 56, 56);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .game-preview span {
+            width: 40px;
+            height: 40px;
+            border-radius: 25px;
+            display: block;
+            border: solid 1px rgb(20, 20, 20);
+            margin: 0 1rem;
+        }
+
+        .game-preview span.true {
+            background-color: rgb(94, 255, 0);
+        }
+
+
+        .game-preview span.false {
+            background-color: rgb(219, 17, 17);
+        }
     </style>
 </body>

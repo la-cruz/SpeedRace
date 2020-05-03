@@ -37,7 +37,7 @@ router.get('/', function (req, res) {
 
 router.post('/ttl', function (req, res) {
     ttl = req.body.ttl;
-    errors = [] 
+    errors = []
     res.render('index', {
         errors
     })
@@ -63,6 +63,9 @@ router.post('/start', function (req, res) {
 
     game.start()
     game.name = req.body.gameName
+
+    console.log(game)
+    console.log(req.body.gameName)
 
     res.render('index', {
         errors
