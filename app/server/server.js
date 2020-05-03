@@ -5,7 +5,7 @@ const port = 3376
 const apiRouter = require("./routes/api")
 const adminRouter = require("./routes/admin")
 
-app.set("views", "templates")
+app.set("views", "~/templates")
 app.set('view engine', 'ejs')
 app.use(cors())
 app.use(express.urlencoded())
