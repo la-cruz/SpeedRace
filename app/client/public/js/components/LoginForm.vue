@@ -138,7 +138,6 @@
                             })
 
                             if(this.ttl > 0) {
-                                console.log("je baisse le ttl de 1")
                                 this.changeStats({
                                     ttl: this.ttl - 1,
                                     updateServer: true
@@ -150,7 +149,6 @@
                                         status: "dead",
                                         updateServer: true
                                     })
-                                    clearInterval(this.loop)
                                 }
                             }
 
@@ -184,11 +182,13 @@
             showAlert () {
                 if(this.winner === this.login) {
                     this.$swal("Bravo, vous avez gagné")
+                    clearInterval(this.loop)
                 } else if(this.status === 'dead') {
                     this.$swal("Dommage ... vous avez perdu")
-                } else if(this.winner !== 'none' && this.winner !== this.login) {
                     clearInterval(this.loop)
+                } else if(this.winner !== 'none' && this.winner !== this.login) {
                     this.$swal(`Perdu, ${this.winner} a gagné`)
+                    clearInterval(this.loop)
                 }
             }
         },
