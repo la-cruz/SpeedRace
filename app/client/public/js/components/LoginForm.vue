@@ -35,7 +35,6 @@
                 password: "",
                 error: false,
                 errorMessage: "",
-                loop: null,
                 watchPos: null
             }
         },
@@ -50,7 +49,7 @@
                 'markers',
                 'ttl',
                 'winner',
-                'status'
+                'status',
             ])
         },
         methods: {
@@ -69,7 +68,9 @@
                 'updateMarkers',
                 'resetStats',
                 'getStats',
-                'join'
+                'join',
+                'setLoop',
+                'stopLoop'
             ]),
             connection () {
                 LogModule.login(this.pseudo, this.password).then((response) => {
@@ -105,8 +106,7 @@
                             this.updateMap()
                         });
 
-                        this.loop = setInterval(() =>{
-                            console.log("je suis dans la boucle")
+                        this.setLoop(setInterval(() =>{
                             DataModule.list().then((json) => {
                                 Object.keys(json.list).forEach((key) => {
 
@@ -114,7 +114,7 @@
 
                                     if(player.status === "winner") {
                                         this.changeWinner(player.id)
-                                        clearInterval(this.loop)
+                                        this.stopLoop()
                                         navigator.geolocation.clearWatch(this.watchPos)
                                     }
 
@@ -130,7 +130,6 @@
                                     }
 
                                     if(player.id === "target") {
-                                        console.log(player)
                                         this.changeTargetPosition({
                                             newLat: player.position[0],
                                             newLon: player.position[1]
@@ -147,7 +146,6 @@
 
                                 if(this.ttl === 0) {
                                     navigator.geolocation.clearWatch(this.watchPos)
-                                    clearInterval(this.loop)
                                     this.changeStats({
                                         status: "dead",
                                         updateServer: true
@@ -157,7 +155,7 @@
 
                             this.showAlert()
                             this.updateMarkers()
-                        }, 1000)
+                        }, 1000))
 
                         GameModule.status().then((json) => {
                             if(json.started) {
@@ -177,10 +175,8 @@
                 })
             },
             logout () {
+                this.stopLoop()
                 LogModule.logout().then((response) => {
-                    console.log("ARRETE TOI PUTAIN DE BOUCLE")
-                    clearInterval(this.loop)
-                    console.log("elle est sensé s'etre arreté")
                     this.resetStats()
                 })
             },

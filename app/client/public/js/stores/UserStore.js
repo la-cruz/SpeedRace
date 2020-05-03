@@ -10,7 +10,8 @@ let state = {
     trophies: [],
     winner: "none",
     gameJoined: false,
-    gameStarted: false
+    gameStarted: false,
+    loop: null
 }
 
 let getters = {
@@ -22,7 +23,8 @@ let getters = {
     trophies: state => state.trophies,
     winner : state => state.winner,
     gameJoined: state => state.gameJoined,
-    gameStarted: state => state.gameStarted
+    gameStarted: state => state.gameStarted,
+    loop: state => state.loop
 }
 
 let mutations = {
@@ -71,6 +73,12 @@ let mutations = {
         state.trophies = []
         state.gameJoined = false
         state.gameStarted = false
+    },
+    SET_LOOP: (state, loop) => {
+        state.loop = loop
+    },
+    STOP_LOOP: (state) => {
+        clearInterval(state.loop)
     }
 }
 
@@ -101,6 +109,12 @@ let actions = {
     },
     resetStats: (store) => {
         store.commit('RESET_STATS')
+    },
+    setLoop: (store, loop) => {
+        store.commit('SET_LOOP', loop)
+    },
+    stopLoop: (store) => {
+        store.commit('STOP_LOOP')
     }
 }
 
