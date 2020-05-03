@@ -51,6 +51,7 @@ public class UserRestController {
 			@ApiResponse(responseCode = "204", description = "There is no user")
 		}
 	)
+	@CrossOrigin(origins = {"http://localhost", "http://localhost:3376", "http://192.168.75.28", "https://192.168.75.28"})
 	@GetMapping(path = "/users", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<Set<String>> getUsers(
 		@Parameter(description = "The host uri", in = ParameterIn.HEADER) @RequestHeader("host") String host
@@ -74,7 +75,7 @@ public class UserRestController {
 			@ApiResponse(responseCode = "404", description = "User not found")
 		}
 	)
-	@CrossOrigin(origins = {"http://localhost", "http://192.168.75.28", "https://192.168.75.28"})
+	@CrossOrigin(origins = {"http://localhost", "http://localhost:3376", "http://192.168.75.28", "https://192.168.75.28"})
 	@GetMapping(path = "/users/{userId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<User> getUser(
 		@Parameter(description = "The login of the user you need to fetch", in = ParameterIn.PATH) @PathVariable("userId") String userId
@@ -98,6 +99,7 @@ public class UserRestController {
 			@ApiResponse(responseCode = "400", description = "Login or password blank")
 		}
 	)
+	@CrossOrigin(origins = {"http://localhost", "http://localhost:3376", "http://192.168.75.28", "https://192.168.75.28"})
 	@PostMapping(path = "/users", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE })
 	public ResponseEntity<Void> postUsers(
 		@Parameter(description = "The login of the user", in = ParameterIn.QUERY ) @RequestParam("login") String login,
@@ -153,12 +155,13 @@ public class UserRestController {
 			@ApiResponse(responseCode = "200", description = "The user has been deleted"),
 		}
 	)
+	@CrossOrigin(origins = {"http://localhost", "http://localhost:3376", "http://192.168.75.28", "https://192.168.75.28"})
 	@DeleteMapping(path = "/users/{userId}", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE })
 	public ResponseEntity<Void> deleteUser(
 		@Parameter(description = "The user you want to delete", in = ParameterIn.PATH ) @PathVariable String userId
 	) {
 		Optional<User> optionalUser = users.get(userId); 
-		if(optionalUser.isEmpty()) users.delete(optionalUser.get());
+		if(!optionalUser.isEmpty()) users.delete(optionalUser.get());
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
