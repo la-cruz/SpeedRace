@@ -1,35 +1,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;900&display=swap" rel="stylesheet">
+    <title>Speed Race Admin</title>
 </head>
 <body>
     <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-    <form action="/admin/ttl" method="POST">
-        <label for="ttl">TTL de base : </label><input id="ttl" name="ttl" type="text"/>
-        <input type="submit" value="Valider"/>
-    </form>
-    <form action="/admin/target" method="POST">
-        <label for="latitude">Latitude de la cible : </label><input id="latitude" name="latitude" step="0.001" type="number"/>
-        <label for="longitude">Longitude de la cible : </label><input id="longitude" name="longitude" step="0.001" type="number"/>
-        <input type="submit" value="Valider"/>
-    </form>
-    <form action="/admin/start" method="POST">
-        <label for="gameName">Nom de la partie : </label><input id="gameName" name="gameName" type="text"/>
-        <input type="submit" value="Commencer une partie" />
-    </form>
-    <form action="http://192.168.75.28:8080/users" method="POST" name="create-user" target="dummyframe">
-        <label for="login">Login de l'utilisateur</label><input id="login" name="login" type="text">
-        <label for="password">Password de l'utilisateur</label><input id="password" name="password" type="text">
-        <input type="reset" value="Créer l'utilisateur" onclick='document.forms["create-user"].submit()'/>
-    </form>
+    <div class="container-admin">
+        <h1>Partie Admin</h1>
+        <hr>
+        <form action="/admin/ttl" method="POST">
+            <div class="reverse-input">
+                <input class="input-admin" id="ttl" name="ttl" type="text"/>
+                <label for="ttl">TTL de base : </label>
+            </div>
+            <input class="btn-admin" type="submit" value="Valider"/>
+        </form>
+        <form action="/admin/target" method="POST">
+            <div class="reverse-input">
+                <input class="input-admin" id="latitude" name="latitude" step="0.001" type="number"/>
+                <label for="latitude">Latitude de la cible : </label>
+            </div>
+            <div class="reverse-input">
+                <input class="input-admin" id="longitude" name="longitude" step="0.001" type="number"/>
+                <label for="longitude">Longitude de la cible : </label>
+            </div>
+            <input class="btn-admin" type="submit" value="Valider"/>
+        </form>
+        <form action="/admin/start" method="POST">
+            <div class="reverse-input">
+                <input class="input-admin" id="gameName" name="gameName" type="text"/>
+                <label for="gameName">Nom de la partie : </label>
+            </div>
+            <input class="btn-admin" type="submit" value="Commencer une partie" />
+        </form>
+        <form action="http://192.168.75.28:8080/users" method="POST" name="create-user" target="dummyframe">
+            <div class="reverse-input">
+                <input class="input-admin" id="login" name="login" type="text">
+                <label for="login">Login de l'utilisateur</label>
+            </div>
+            <div class="reverse-input">
+                <input class="input-admin" id="password" name="password" type="text">
+                <label for="password">Password de l'utilisateur</label>
+            </div>
+            <input class="btn-admin" type="reset" value="Créer l'utilisateur" onclick='document.forms["create-user"].submit()'/>
+        </form>
+    </div>
     <ul>
         <% errors.forEach(function(error){ %>
             <li><%= error %></li>
         <% }); %>
     </ul>
-    <ul class="list-user">
-    </ul>
+    <div class="container-admin">
+        <ul class="list-user">
+        </ul>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script src="static/js/AjaxRequest.js"></script>
     <script>
@@ -77,4 +102,91 @@
             deleteData("http://192.168.75.28:8080/users/" + login)
         }
     </script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(56, 56, 56);
+        }
+
+        .container-admin {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* align-items: center; */
+            background-color: white;
+            border-radius: 10px;
+            padding: 1rem 3rem;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            color: rgb(56, 56, 56);
+            text-align: center;
+        }
+
+        hr {
+            width: 80%;
+            height: 4px;
+            border: none;
+            margin-bottom: 2rem;
+            background-color: #FFCD00;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .reverse-input {
+            display: flex;
+            align-items: center;
+            flex-direction: row-reverse;
+        }
+
+        label {
+            color: rgb(56, 56, 56);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+        .input-admin {
+            color: black;
+            border: solid 2px rgba(56, 56, 56, 0.5);
+            border-radius: 10px;
+            outline: none;
+            padding: 0.5rem 0.5rem;
+            margin: 0 1rem;
+            font-size: 1.3rem;
+        }
+
+        .input-admin:focus-within {
+            border-color: #FFCD00;
+        }
+
+        .input-admin:focus-within+label {
+            color: #FFCD00;
+        }
+
+        .btn-admin {
+            width: min-content;
+            background-color: #FFCD00;
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            outline: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+        }
+
+    </style>
 </body>
