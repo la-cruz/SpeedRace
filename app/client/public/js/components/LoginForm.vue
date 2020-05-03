@@ -181,12 +181,15 @@
             },
             showAlert () {
                 if(this.winner === this.login) {
+                    this.updateMarkers()
                     this.$swal("Bravo, vous avez gagné")
                     clearInterval(this.loop)
                 } else if(this.status === 'dead') {
                     this.$swal("Dommage ... vous avez perdu")
+                    this.updateMarkers()
                     clearInterval(this.loop)
                 } else if(this.winner !== 'none' && this.winner !== this.login) {
+                    this.updateMarkers()
                     this.$swal(`Perdu, ${this.winner} a gagné`)
                     clearInterval(this.loop)
                 }

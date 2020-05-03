@@ -76,7 +76,7 @@ let mutations = {
                     }).addTo(state.map).bindPopup(marker.message)
                 } else {
                     L.marker([marker.lat, marker.lon]).addTo(state.markersLayer).bindPopup(marker.message)
-                } 
+                }
             })
         }
     },
