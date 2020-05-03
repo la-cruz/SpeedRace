@@ -119,7 +119,6 @@
                                             circle: player.blurred
                                         })
                                     } else {
-                                        clearInterval(this.loop)
                                         this.removeMarker(player.id)
                                     }
 
@@ -133,6 +132,7 @@
                             })
 
                             if(this.ttl > 0) {
+                                console.log("je baisse le ttl de 1")
                                 this.changeStats({
                                     ttl: this.ttl - 1,
                                     updateServer: true
@@ -144,6 +144,7 @@
                                         status: "dead",
                                         updateServer: true
                                     })
+                                    clearInterval(this.loop)
                                 }
                             }
 
