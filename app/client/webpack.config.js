@@ -1,7 +1,6 @@
 const path = require('path');
 var webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
   mode: 'development',
@@ -44,23 +43,7 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader',
-          {
-            loader: 'sass-loader',
-            // Requires sass-loader@^7.0.0
-            options: {
-              implementation: require('sass'),
-              fiber: require('fibers'),
-              indentedSyntax: true // optional
-            },
-            // Requires sass-loader@^8.0.0
-            options: {
-              implementation: require('sass'),
-              sassOptions: {
-                fiber: require('fibers'),
-                indentedSyntax: true // optional
-              },
-            },
-          }
+          'sass-loader'
         ],
       }
     ],
@@ -71,13 +54,6 @@ module.exports = {
       jQuery: 'jquery'
     }),
     new VueLoaderPlugin(),
-    new VuetifyLoaderPlugin({
-      match (originalTag, { kebabTag, camelTag, path, component }) {
-        if (kebabTag.startsWith('core-')) {
-          return [camelTag, `import ${camelTag} from '@/components/core/${camelTag.substring(4)}.vue'`]
-        }
-      }
-    })
   ],
   devServer: {
     contentBase: path.join(__dirname, 'public/dist'),

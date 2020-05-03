@@ -1,14 +1,20 @@
 <template>
-    <form class="login-form" @submit.prevent>
+    <form class="login-form" v-bind:class="{ disconnected : connected }" @submit.prevent>
         <div class="error" v-if="error">
             {{ errorMessage }}
         </div>
-        <div v-if="!connected">
-            <label>Login : </label><input type="text" v-model="pseudo">
-            <label>Mot de passe : </label><input type="password" v-model="password">
+        <div v-if="!connected" class="input-container">
+            <div class="reverse-input">
+                <input type="text" class="input-text" v-model="pseudo">
+                <label>Login : </label>
+            </div>
+            <div class="reverse-input">
+                <input type="password" class="input-text" v-model="password">
+                <label>Mot de passe : </label>
+            </div>
         </div>
-        <input type="submit" value="Connexion" @click="connection" v-if="!connected">
-        <input type="submit" value="Déconnexion" @click="logout" v-else>
+        <input type="submit" class="btn" value="Connexion" @click="connection" v-if="!connected">
+        <input type="submit" value="Déconnexion" class="btn-logout" @click="logout" v-else>
     </form>
 </template>
 
@@ -191,42 +197,72 @@
 
 <style lang="scss">
     .login-form {
-        position: absolute;
-        right: 0;
-        top: 0;
-        padding-right: 1rem;
-        height: 100%;
+        width: 100%;
         display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        justify-content: space-evenly;
-        color: white;
 
         .error {
             position: absolute;
-            width: 100vw;
+            width: 80vw;
             top: 5rem;
-            right: 0;
             background-color: rgb(179, 13, 13);
             text-align: center;
             color: white;
             padding: 2rem 0;
             font-size: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
         }
 
-        label {
-            margin: 0 1rem;
-        }
-        
-        input {
-            color: black;
+        .input-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
 
-            &[type=submit] {
-                margin-left: 2rem;
+            .reverse-input {
+                display: flex;
+                flex-direction: column-reverse;
             }
         }
 
-        div {
-            display: inline;
+        label {
+            color: rgb(56, 56, 56);
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        input {
+            color: black;
+            width: 100%;
+            font-size: 1.5rem;
+        }
+
+        &.disconnected {
+            width: max-content;
+
+            .btn-logout {
+                background-color: #FFCD00;
+                width: max-content;
+                font-size: 1.2rem;
+                color: white;
+                border: none;
+                border-radius: 50px;
+                text-transform: uppercase;
+                transition: 0.5s;
+                outline: none;
+                margin: 0 3rem;
+                padding: 0.8rem 1rem;
+                box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+
+                &:hover {
+                    transform: scale(1.05);
+                    transition: 0.5s;
+                }
+            }
         }
     }
 </style>

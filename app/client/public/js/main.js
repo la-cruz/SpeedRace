@@ -1,13 +1,15 @@
 import Vue from "vue/dist/vue.esm.browser"
 import Vuex from "vuex"
 import VueRouter from "vue-router"
-import vuetify from "./plugins/vuetify"
 import L from "leaflet"
 import VueSweetalert2 from 'vue-sweetalert2';
 
 import marker from 'leaflet/dist/images/marker-icon.png';
 import marker2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -49,6 +51,5 @@ const router = new VueRouter({
 new Vue({
     el: "#app",
     router,
-    vuetify,
     render: h => h(require('./App.vue').default)
 });
