@@ -4,8 +4,6 @@ const axios = require('axios')
 const game = require("../src/game")
 const geoResources = require("../src/geoResources")
 
-const geoResources = require("../src/geoResources")
-
 function authenticate(jwt) {
     var bool = false;
 
