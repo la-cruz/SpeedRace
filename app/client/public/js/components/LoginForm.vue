@@ -42,7 +42,9 @@
                 'latitudeTarget',
                 'longitudeTarget',
                 'markers',
-                'ttl'
+                'ttl',
+                'winner',
+                'status'
             ])
         },
         methods: {
@@ -117,6 +119,7 @@
                                             circle: player.blurred
                                         })
                                     } else {
+                                        clearInterval(this.loop)
                                         this.removeMarker(player.id)
                                     }
 
@@ -143,6 +146,8 @@
                                     })
                                 }
                             }
+
+                            this.showAlert()
                             this.updateMarkers()
                         }, 1000)
 
@@ -168,6 +173,16 @@
                     clearInterval(this.loop)
                     this.resetStats()
                 })
+            },
+            showAlert () {
+                if(this.winner === this.login) {
+                    this.$swal("Bravo, vous avez gagné")
+                } else if(this.status === 'dead') {
+                    this.$swal("Dommage ... vous avez perdu")
+                } else if(this.winner !== 'none' && this.winner !== this.login) {
+                    clearInterval(this.loop)
+                    this.$swal(`Perdu, ${this.winner} a gagné`)
+                }
             }
         },
     }
