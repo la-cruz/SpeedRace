@@ -6,7 +6,7 @@ const apiRouter = require("./routes/api")
 const adminRouter = require("./routes/admin")
 
 app.set('view engine', 'ejs')
-app.set("views", "/templates")
+app.set("views", "./templates")
 app.use(cors())
 app.use(express.urlencoded())
 
