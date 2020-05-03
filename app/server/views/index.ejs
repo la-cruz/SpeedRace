@@ -88,8 +88,8 @@
                                     })
 
                                     crossBtn.appendChild(cross)
-                                    li.appendChild(name)
                                     li.appendChild(connectedBox)
+                                    li.appendChild(name)
                                     li.appendChild(crossBtn)
                                     document.querySelector(".list-user").appendChild(li)
                                 })
@@ -200,6 +200,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding-inline-start: 0;
         }
 
         li {
@@ -215,8 +216,21 @@
             align-items: center;
         }
 
+        span {
+            width: 15px;
+            height: 15px;
+            border-radius: 50px;
+            background-color: red;
+            margin-right: 0.5rem;
+        }
+
+        span.connected {
+            background-color: rgb(43, 145, 34);
+        }
+
         button {
             margin-left: 0.8rem;
+            background-color: white;
             border: solid 2px #FFCD00;
             border-radius: 50px;
             font-size: 1.1rem;
