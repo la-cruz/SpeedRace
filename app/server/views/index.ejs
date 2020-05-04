@@ -1,3 +1,4 @@
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +34,7 @@
                 <label for="gameName">Nom de la partie : </label>
             </div>
             <input class="btn-admin" type="reset" value="Commencer une partie" onclick='document.forms["start-game"].submit()'/>
-            <div class="game-preview">Nom : <p></p> /  Commencé : <span></span></div>
+            <div class="game-preview">Nom : <p></p>  Commencé : <span></span></div>
         </form>
         <form action="http://192.168.75.28:8080/users" method="POST" name="create-user" target="dummyframe">
             <div class="reverse-input">
@@ -107,14 +108,11 @@
                 .then((response) => {
                     return response.json()
                 }).then((json) => {
-                    console.log(json)
-                    console.log(gameName)
                     if(json.name !== gameName || json.started !== started) {
                         gameName = json.name
                         started = json.started
                         document.querySelector(".game-preview > p").innerHTML = gameName
                         document.querySelector(".game-preview > span").className = started
-                        console.log("j'ai update")
                     }
                 })
         }
@@ -140,7 +138,7 @@
         }
 
         .container-admin {
-            width: 90%;
+            width: 90vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -148,6 +146,10 @@
             border-radius: 10px;
             padding: 1rem 3rem;
             box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        }
+
+        .list-user {
+            flex-wrap: wrap;
         }
 
         h1 {
@@ -169,12 +171,33 @@
             display: flex;
             align-items: center;
             padding: 1rem;
+            max-width: 90vw;
+            flex-wrap: wrap;
         }
 
         .reverse-input {
             display: flex;
             align-items: center;
             flex-direction: row-reverse;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 991px) {
+            form {
+                flex-direction: column;
+            }
+
+            .container-admin {
+                padding: 0;
+            }
+
+            .reverse-input {
+                width: 75%;
+            }
+
+            input {
+                width: 100%;
+            }
         }
 
         label {
@@ -236,6 +259,7 @@
             border-radius: 10px;
             display: flex;
             align-items: center;
+            margin: 1rem;
         }
 
         span {
@@ -278,6 +302,18 @@
             font-weight: bold;
         }
 
+        @media (max-width: 1400px) {
+            .game-preview {
+                width: 100%;
+                justify-content: center;
+                margin-top: 2rem;
+            }
+
+            .reverse-input {
+                flex-direction: column-reverse;
+            }
+        }
+
         .game-preview p {
             margin: 0 1rem;
             color: rgb(56, 56, 56);
@@ -303,5 +339,17 @@
         .game-preview span.false {
             background-color: rgb(219, 17, 17);
         }
+
+        @media (max-width: 450px) {
+            .game-preview {
+                flex-direction: column;
+            }
+
+            .game-preview > p,
+            .game-preview > span {
+                margin: 1rem;
+            }
+        }
     </style>
 </body>
+</html>
