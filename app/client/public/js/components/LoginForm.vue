@@ -148,6 +148,7 @@
                                 })
 
                                 if(this.ttl === 0) {
+                                    this.removeMarker(this.login)
                                     navigator.geolocation.clearWatch(this.watchPos)
                                     this.changeStats({
                                         status: "dead",
