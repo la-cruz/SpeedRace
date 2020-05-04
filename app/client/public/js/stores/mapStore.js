@@ -50,32 +50,43 @@ let mutations = {
         }
     },
     UPDATE_MARKERS: (state) => {
-        if(state.markersLayer) {
-            state.markersLayer.clearLayers()
-            var i
-            for(i in state.map._layers) {
-                if(state.map._layers[i]._path != undefined) {
-                    try {
-                        state.map.removeLayer(state.map._layers[i]);
-                    }
-                    catch(e) {
-                        console.log("problem with " + e + state.map._layers[i]);
-                    }
-                }
-            }
-        }
+        // if(state.markersLayer) {
+        //     state.markersLayer.clearLayers()
+        //     var i
+        //     for(i in state.map._layers) {
+        //         if(state.map._layers[i]._path != undefined) {
+        //             try {
+        //                 state.map.removeLayer(state.map._layers[i]);
+        //             }
+        //             catch(e) {
+        //                 console.log("problem with " + e + state.map._layers[i]);
+        //             }
+        //         }
+        //     }
+        // }
         if(state.map) {
-            state.markersLayer = L.layerGroup().addTo(state.map)
+            if(!state.markersLayer) {
+                state.markersLayer = L.layerGroup().addTo(state.map)
+            }
             state.markers.forEach((marker) => {
+                console.log("Mo, marker : ", marker.message)
                 if(marker.circle) {
-                    L.circle([marker.lat, marker.lon], {
-                        color: "red",
-                        fillColor: "#f03",
-                        fillOpacity: 0.5,
-                        radius: 200
-                    }).addTo(state.map).bindPopup(marker.message)
+                    if(marker.entity) {
+                        marker.entity.setLatLng([marker.lat, marker.lon])
+                    } else {
+                        marker.entity = L.circle([marker.lat, marker.lon], {
+                            color: "red",
+                            fillColor: "#f03",
+                            fillOpacity: 0.5,
+                            radius: 200
+                        }).addTo(state.map).bindPopup(marker.message)
+                    }
                 } else {
-                    L.marker([marker.lat, marker.lon]).addTo(state.markersLayer).bindPopup(marker.message)
+                    if(marker.entity) {
+                        marker.entity.setLatLng([marker.lat, marker.lon])
+                    } else {
+                        marker.entity = L.marker([marker.lat, marker.lon], {icon: marker.icon}).addTo(state.markersLayer).bindPopup(marker.message)
+                    }
                 }
             })
         }
@@ -89,7 +100,7 @@ let mutations = {
 
         marker[0].lat = newLat
         marker[0].lon = newLon
-        //marker[0].icon = avatar
+        marker[0].icon = avatar
     },
     ADD_MARKER: (state, {markerLat, markerLon, message, circle, avatar}) => {
         state.markers.push({
@@ -97,7 +108,7 @@ let mutations = {
             lon: markerLon,
             message: message,
             circle: circle,
-            //avatar: avatar
+            avatar: avatar
         })
     },
     REMOVE_MARKER: (state, message) => {
@@ -121,7 +132,7 @@ let actions = {
         if(icon === "" || icon === undefined) icon = "http://localhost:5500/avatar.png"
         var avatar = L.icon({
             iconUrl: icon,
-            iconSize: [38, 95],
+            iconSize: [15, 40],
             iconAnchor: [22, 94],
         });
 
