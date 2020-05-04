@@ -188,14 +188,17 @@
                     if(this.winner === this.login) {
                         this.updateMarkers()
                         this.endGame()
+                        window.navigator.vibrate(200);
                         this.$swal("Bravo, vous avez gagné")
                     } else if(this.status === 'dead') {
                         this.updateMarkers()
                         this.endGame()
+                        window.navigator.vibrate(200);
                         this.$swal("Dommage ... vous avez perdu")
                     } else if(this.winner !== 'none' && this.winner !== this.login) {
                         this.updateMarkers()
                         this.endGame()
+                        window.navigator.vibrate(200);
                         this.$swal(`Perdu, ${this.winner} a gagné`)
                     }
                 }
