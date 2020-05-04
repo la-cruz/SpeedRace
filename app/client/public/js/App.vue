@@ -146,16 +146,15 @@
                     & ~ label {
                         .hamburger {
                             span:nth-child(1) {
-                            transform: rotate(45deg) translateY(14px);
-                            
+                                transform: rotate(45deg) translateY(23px);
                             }
 
                             span:nth-child(2) {
-                            opacity: 0;
+                                opacity: 0;
                             }
 
                             span:nth-child(3) {
-                            transform: rotate(-45deg) translateY(-14px);
+                                transform: rotate(-45deg) translateY(-23px);
                             }
                         }
                     }
@@ -183,7 +182,7 @@
                         align-items: center;
                         justify-content: space-between;
                         position: absolute;
-                        right: 10%;
+                        right: 1rem;
                         transition: 0.5s;
 
                         span {
