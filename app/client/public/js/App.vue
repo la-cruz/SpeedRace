@@ -1,9 +1,19 @@
 <template>
-  <div class="container-page">
-    <nav-menu></nav-menu>
-    <router-view v-if="connected"></router-view>
-    <home-page v-else></home-page>
-  </div>
+    <div class="container-page">
+        <header class="header-app">
+            <input type="checkbox" id="hamburger-checkbox" class="collapse-checkbox" />
+            <label for="hamburger-checkbox">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            </label>
+            <nav-menu></nav-menu>
+        </header>
+        <router-view v-if="connected"></router-view>
+        <home-page v-else></home-page>
+    </div>
 </template>
 
 <script>
@@ -113,6 +123,103 @@
         }
     }
   }
+
+    .collapse-checkbox {
+        display: none;
+    }
+
+  @media (max-width: 991px) {
+  .header-app {
+    .main-nav {
+      background-color: rgba(0, 0, 0, 0.9);
+      position: absolute;
+      left: 0rem;
+      top: 5rem;
+      width: 100%;
+      height: calc(100vh - 5rem);
+      transition: 0.5s;
+      opacity: 0;
+      visibility: hidden;
+      flex-direction: column;
+
+      ul {
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        min-width: unset;
+        margin: 0;
+
+        li {
+          display: flex;
+            align-items: center;
+            justify-content: center;
+          margin: 0;
+          height: 6rem;
+          width: 100%;
+
+          a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            font-size: 2rem;
+          }
+
+          &:last-child {
+              box-shadow: 0px 10px 20px -20px rgba(0, 0, 0, 0.75);
+          }
+        }
+      }
+
+      form {
+          width: 100%;
+          padding-bottom: 1rem;
+      }
+    }
+
+    .collapse-checkbox {
+      &:checked {
+        & ~ .main-nav {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    label {
+      .hamburger {
+        width: 2.5rem;
+        height: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: absolute;
+        right: 10%;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: 0.5s;
+
+        span {
+          display: block;
+          width: 100%;
+          height: 5px;
+          background-color: #FFCD00;
+          border-radius: 1rem;
+          transition: 0.5s;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 767px) {
+  .hamburger {
+    display: none;
+  }
+}
+
   // section {
   //   padding-top: 7rem;
   // }
