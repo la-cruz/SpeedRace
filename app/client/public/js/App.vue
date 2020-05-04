@@ -164,8 +164,8 @@
                     }
 
                     & ~ .main-nav {
-                    opacity: 1;
-                    visibility: visible;
+                        opacity: 1;
+                        visibility: visible;
                     }
                 }
             }

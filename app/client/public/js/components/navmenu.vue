@@ -1,10 +1,10 @@
 <template>
     <nav class="main-nav" v-if="connected">
         <ul v-if="connected">
-            <li><a href="/#/">Accueil</a></li>
-            <li v-if="gameJoined"><a href="/#/game">Jeu</a></li>
-            <li v-if="gameJoined"><a href="/#/stats">Statistique</a></li>
-            <li v-if="gameJoined"><a href="/#/trophies">Trophée</a></li>
+            <li><a @click="hideNavBar" href="/#/">Accueil</a></li>
+            <li v-if="gameJoined"><a @click="hideNavBar" href="/#/game" >Jeu</a></li>
+            <li v-if="gameJoined"><a @click="hideNavBar" href="/#/stats">Statistique</a></li>
+            <li v-if="gameJoined"><a @click="hideNavBar" href="/#/trophies">Trophée</a></li>
         </ul>
         <login-form></login-form>
     </nav>
@@ -24,6 +24,12 @@
                 'connected',
                 'gameJoined'
             ])
+        },
+        methods: {
+            hideNavBar () {
+                var size = window.matchMedia("(max-width: 991px)")
+                if (size.matches) document.getElementById("hamburger-checkbox").checked = false;
+            }
         },
     }
 </script>
@@ -45,7 +51,6 @@
             margin-left: 3rem;
             display: flex;
             justify-content: space-between;
-            // min-width: 30rem;
             list-style: none;
             height: 100%;
 
@@ -70,7 +75,7 @@
         }
 
         @media (max-width: 991px) {
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgb(32, 32, 32);
             position: absolute;
             left: 0rem;
             top: 5rem;
@@ -97,17 +102,17 @@
                     height: 6rem;
                     width: 100%;
 
-                a {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 100%;
-                    height: 100%;
-                    font-size: 2rem;
-                }
+                    a {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        height: 100%;
+                        font-size: 2.2rem;
 
-                &:last-child {
-                        box-shadow: 0px 10px 20px -20px rgba(0, 0, 0, 0.75);
+                        &:hover {
+                            color: #FFCD00;
+                        }
                     }
                 }
             }
