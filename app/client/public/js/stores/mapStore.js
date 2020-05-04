@@ -80,7 +80,7 @@ let mutations = {
             })
         }
     },
-    UPDATE_MARKER: (state, {index, newLat, newLon, newCirle}) => {
+    UPDATE_MARKER: (state, {index, newLat, newLon, newCirle, avatar}) => {
         let marker = state.markers.filter(elem => elem.message === index)
 
         if(newCirle) {
@@ -89,13 +89,15 @@ let mutations = {
 
         marker[0].lat = newLat
         marker[0].lon = newLon
+        //marker[0].icon = avatar
     },
-    ADD_MARKER: (state, {markerLat, markerLon, message, circle}) => {
+    ADD_MARKER: (state, {markerLat, markerLon, message, circle, avatar}) => {
         state.markers.push({
             lat: markerLat,
             lon: markerLon,
             message: message,
-            circle: circle
+            circle: circle,
+            //avatar: avatar
         })
     },
     REMOVE_MARKER: (state, message) => {
@@ -115,17 +117,25 @@ let actions = {
         store.commit('UPDATE_MARKER', {index, newLat, newLon, newCirle})
         store.commit('UPDATE_MARKERS')
     },
-    addMarker: (store, {markerLat, markerLon, message, circle}) => {
+    addMarker: (store, {markerLat, markerLon, message, circle, icon}) => {
+        if(icon === "" || icon === undefined) icon = "http://localhost:5500/avatar.png"
+        var avatar = L.icon({
+            iconUrl: icon,
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+        });
+
         if(store.state.markers.filter(elem => elem.message === message).length > 0) {
             store.commit('UPDATE_MARKER', {
                 index: message, 
                 newLat: markerLat, 
                 newLon: markerLon, 
-                newCircle: circle
+                newCircle: circle,
+                avatar: avatar
             })
             store.commit('UPDATE_MARKERS')
         } else {
-            store.commit('ADD_MARKER', {markerLat, markerLon, message, circle})
+            store.commit('ADD_MARKER', {markerLat, markerLon, message, circle, avatar})
         }
 
     },

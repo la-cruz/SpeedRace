@@ -11,6 +11,7 @@ let state = {
     winner: "none",
     gameJoined: false,
     gameStarted: false,
+    gameEnded: false,
     loop: null
 }
 
@@ -24,6 +25,7 @@ let getters = {
     winner : state => state.winner,
     gameJoined: state => state.gameJoined,
     gameStarted: state => state.gameStarted,
+    gameEnded: state => state.gameEnded,
     loop: state => state.loop
 }
 
@@ -63,6 +65,9 @@ let mutations = {
     },
     CHANGE_GAME: (state, status) => {
         state.gameStarted = status
+    },
+    END_GAME: (state) => {
+        state.gameEnded = true
     },
     RESET_STATS: (state) => {
         state.login = ""
@@ -106,6 +111,9 @@ let actions = {
     },
     changeGame: (store, status) => {
         store.commit('CHANGE_GAME', status)
+    },
+    endGame: (store) => {
+        store.commit('END_GAME')
     },
     resetStats: (store) => {
         store.commit('RESET_STATS')
