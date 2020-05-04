@@ -3,7 +3,7 @@ const router = express.Router()
 const axios = require('axios')
 const game = require("../src/game")
 const geoResources = require("../src/geoResources")
-var baseTtl = require('./ttl')
+var baseTtl = require('../src/ttl')
 
 function authenticate(jwt) {
     var bool = false;
