@@ -66,5 +66,49 @@
                 }
             }
         }
+
+        @media (max-width: 991px) {
+            background-color: rgba(0, 0, 0, 0.9);
+            position: absolute;
+            left: 0rem;
+            top: 5rem;
+            width: 100%;
+            height: calc(100vh - 5rem);
+            transition: 0.5s;
+            opacity: 0;
+            visibility: hidden;
+            flex-direction: column;
+
+            ul {
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                min-width: unset;
+                margin: 0;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0;
+                    height: 6rem;
+                    width: 100%;
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    font-size: 2rem;
+                }
+
+                &:last-child {
+                        box-shadow: 0px 10px 20px -20px rgba(0, 0, 0, 0.75);
+                    }
+                }
+            }
+        }
     }
 </style>

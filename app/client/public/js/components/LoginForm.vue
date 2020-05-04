@@ -278,6 +278,11 @@
                     transition: 0.5s;
                 }
             }
+
+            @media (max-width: 991px) {
+                width: 100%;
+                padding-bottom: 1rem;
+            }
         }
     }
 </style>

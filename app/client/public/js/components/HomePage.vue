@@ -31,7 +31,7 @@
     .home-page {
         width: 100%;
         display: flex;
-        height: calc(100vh);
+        height: calc(100vh - 5rem);
         justify-content: center;
         align-items: center;
         flex-direction: column;
