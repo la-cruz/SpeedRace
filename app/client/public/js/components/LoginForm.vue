@@ -125,8 +125,7 @@
                                             markerLat: parseFloat(player.position[0]),
                                             markerLon: parseFloat(player.position[1]),
                                             message: player.id,
-                                            circle: player.blurred,
-                                            icon: player.url
+                                            circle: player.blurred
                                         })
                                     } else {
                                         this.removeMarker(player.id)

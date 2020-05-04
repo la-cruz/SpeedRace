@@ -50,26 +50,11 @@ let mutations = {
         }
     },
     UPDATE_MARKERS: (state) => {
-        // if(state.markersLayer) {
-        //     state.markersLayer.clearLayers()
-        //     var i
-        //     for(i in state.map._layers) {
-        //         if(state.map._layers[i]._path != undefined) {
-        //             try {
-        //                 state.map.removeLayer(state.map._layers[i]);
-        //             }
-        //             catch(e) {
-        //                 console.log("problem with " + e + state.map._layers[i]);
-        //             }
-        //         }
-        //     }
-        // }
         if(state.map) {
             if(!state.markersLayer) {
                 state.markersLayer = L.layerGroup().addTo(state.map)
             }
             state.markers.forEach((marker) => {
-                console.log("Mo, marker : ", marker.message)
                 if(marker.circle) {
                     if(marker.entity) {
                         marker.entity.setLatLng([marker.lat, marker.lon])
@@ -85,13 +70,13 @@ let mutations = {
                     if(marker.entity) {
                         marker.entity.setLatLng([marker.lat, marker.lon])
                     } else {
-                        marker.entity = L.marker([marker.lat, marker.lon], {icon: marker.icon}).addTo(state.markersLayer).bindPopup(marker.message)
+                        marker.entity = L.marker([marker.lat, marker.lon]).addTo(state.markersLayer).bindPopup(marker.message)
                     }
                 }
             })
         }
     },
-    UPDATE_MARKER: (state, {index, newLat, newLon, newCirle, avatar}) => {
+    UPDATE_MARKER: (state, {index, newLat, newLon, newCirle}) => {
         let marker = state.markers.filter(elem => elem.message === index)
 
         if(newCirle) {
@@ -100,19 +85,29 @@ let mutations = {
 
         marker[0].lat = newLat
         marker[0].lon = newLon
-        marker[0].icon = avatar
     },
-    ADD_MARKER: (state, {markerLat, markerLon, message, circle, avatar}) => {
+    ADD_MARKER: (state, {markerLat, markerLon, message, circle}) => {
         state.markers.push({
             lat: markerLat,
             lon: markerLon,
             message: message,
-            circle: circle,
-            avatar: avatar
+            circle: circle
         })
     },
     REMOVE_MARKER: (state, message) => {
         state.markers = state.markers.filter(elem => elem.message !== message)
+        state.markersLayer.clearLayers()
+        var i
+        for(i in state.map._layers) {
+            if(state.map._layers[i]._path != undefined) {
+                try {
+                    state.map.removeLayer(state.map._layers[i]);
+                }
+                catch(e) {
+                    console.log("problem with " + e + state.map._layers[i]);
+                }
+            }
+        }
     }
 }
 
@@ -128,13 +123,13 @@ let actions = {
         store.commit('UPDATE_MARKER', {index, newLat, newLon, newCirle})
         store.commit('UPDATE_MARKERS')
     },
-    addMarker: (store, {markerLat, markerLon, message, circle, icon}) => {
-        if(icon === "" || icon === undefined) icon = "http://localhost:5500/avatar.png"
-        var avatar = L.icon({
-            iconUrl: icon,
-            iconSize: [15, 40],
-            iconAnchor: [22, 94],
-        });
+    addMarker: (store, {markerLat, markerLon, message, circle}) => {
+        // if(icon === "" || icon === undefined) icon = "http://localhost:5500/avatar.png"
+        // var avatar = L.icon({
+        //     iconUrl: icon,
+        //     iconSize: [15, 40],
+        //     iconAnchor: [22, 94],
+        // });
 
         if(store.state.markers.filter(elem => elem.message === message).length > 0) {
             store.commit('UPDATE_MARKER', {
@@ -142,11 +137,11 @@ let actions = {
                 newLat: markerLat, 
                 newLon: markerLon, 
                 newCircle: circle,
-                avatar: avatar
+                //avatar: avatar
             })
             store.commit('UPDATE_MARKERS')
         } else {
-            store.commit('ADD_MARKER', {markerLat, markerLon, message, circle, avatar})
+            store.commit('ADD_MARKER', {markerLat, markerLon, message, circle})
         }
 
     },
