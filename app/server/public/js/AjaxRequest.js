@@ -81,5 +81,3 @@ async function putData(url = '', data = {}) {
         return response;
     })
 }
-
-//export default { deleteData, postData, getData, putData }

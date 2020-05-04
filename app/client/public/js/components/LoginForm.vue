@@ -50,6 +50,7 @@
                 'ttl',
                 'winner',
                 'status',
+                'gameEnded'
             ])
         },
         methods: {
@@ -70,7 +71,8 @@
                 'getStats',
                 'join',
                 'setLoop',
-                'stopLoop'
+                'stopLoop',
+                'endGame'
             ]),
             connection () {
                 LogModule.login(this.pseudo, this.password).then((response) => {
@@ -123,14 +125,14 @@
                                             markerLat: parseFloat(player.position[0]),
                                             markerLon: parseFloat(player.position[1]),
                                             message: player.id,
-                                            circle: player.blurred
+                                            circle: player.blurred,
+                                            icon: player.url
                                         })
                                     } else {
                                         this.removeMarker(player.id)
                                     }
 
                                     if(player.id === "target") {
-                                        console.log(player)
                                         this.changeTargetPosition({
                                             newLat: player.position[0],
                                             newLon: player.position[1]
@@ -182,16 +184,20 @@
                 })
             },
             showAlert () {
-                if(this.winner === this.login) {
-                    this.updateMarkers()
-                    this.$swal("Bravo, vous avez gagné")
-                } else if(this.status === 'dead') {
-                    //this.$swal("Dommage ... vous avez perdu")
-                    console.log("perdu")
-                    this.updateMarkers()
-                } else if(this.winner !== 'none' && this.winner !== this.login) {
-                    this.updateMarkers()
-                    this.$swal(`Perdu, ${this.winner} a gagné`)
+                if(!this.gameEnded) {
+                    if(this.winner === this.login) {
+                        this.updateMarkers()
+                        this.endGame()
+                        this.$swal("Bravo, vous avez gagné")
+                    } else if(this.status === 'dead') {
+                        this.updateMarkers()
+                        this.endGame()
+                        this.$swal("Dommage ... vous avez perdu")
+                    } else if(this.winner !== 'none' && this.winner !== this.login) {
+                        this.updateMarkers()
+                        this.endGame()
+                        this.$swal(`Perdu, ${this.winner} a gagné`)
+                    }
                 }
             }
         },
