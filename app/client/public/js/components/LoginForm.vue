@@ -223,6 +223,12 @@
             font-size: 1.5rem;
             border-radius: 10px;
             box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+
+            @media (max-height: 850px) { 
+                top: 0;
+                padding: 1rem 0;
+                font-size: 1rem;
+            }
         }
 
         .input-container {
