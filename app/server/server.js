@@ -11,7 +11,7 @@ app.use(cors())
 app.use(express.urlencoded())
 
 app.get('/', (req, res) => res.send('Hello World!'));
-app.use('/static', express.static('./public'));
+app.use('/static', express.static('/home/etudiant/server/public'));
 app.use('/api', apiRouter);
 app.use('/admin', adminRouter);
 
