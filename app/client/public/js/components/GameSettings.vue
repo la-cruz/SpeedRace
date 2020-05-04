@@ -28,7 +28,7 @@
         width: 20%;
         background-color: white;
         border-radius: 10px;
-        z-index: 100000;
+        z-index: 500;
         box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
         display: flex;
         justify-content: center;

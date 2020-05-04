@@ -39,12 +39,13 @@
         top: 0;
         left: 0;
         box-shadow: 0 13px 20px -27px #fff;
+        z-index: 2000;
 
         ul {
             margin-left: 3rem;
             display: flex;
             justify-content: space-between;
-            min-width: 30rem;
+            // min-width: 30rem;
             list-style: none;
             height: 100%;
 
@@ -59,6 +60,7 @@
                     font-weight: bold;
                     transition: 0.2s;
                     font-size: 1.3rem;
+                    padding: 1rem;
 
                     &:hover {
                         color: #FFCD00;

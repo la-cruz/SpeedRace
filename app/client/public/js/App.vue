@@ -3,7 +3,7 @@
         <header class="header-app">
             <input type="checkbox" id="hamburger-checkbox" class="collapse-checkbox" />
             <label for="hamburger-checkbox">
-            <div class="container-hamb">
+            <div class="container-hamb" v-if="connected">
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -95,6 +95,10 @@
 
     .page {
         padding-top: 5rem;
+
+        @media (max-width: 991px) {
+            padding-top: 0;
+        }
     }
 
     .btn {
