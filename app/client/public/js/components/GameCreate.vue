@@ -77,7 +77,7 @@
 
 <style lang="scss">
     .container-creation {
-        height: 100vh;
+        height: calc(100vh - 5rem);
         display: flex;
         flex-direction: column;
         justify-content: center;

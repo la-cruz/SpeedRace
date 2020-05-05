@@ -31,7 +31,7 @@
     .home-page {
         width: 100%;
         display: flex;
-        height: calc(100vh);
+        height: calc(100vh - 5rem);
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -47,14 +47,6 @@
             padding: 1rem 3rem;
             box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 
-            // h1 {
-            //     font-size: 3rem;
-            //     font-weight: bold;
-            //     text-transform: uppercase;
-            //     text-align: center;
-            //     color: rgb(56, 56, 56);
-            // }
-    
             p {
                 margin: 2rem 0;
                 font-size: 1.2rem;

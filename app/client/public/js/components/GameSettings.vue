@@ -28,13 +28,13 @@
         width: 20%;
         background-color: white;
         border-radius: 10px;
-        z-index: 100000;
+        z-index: 500;
         box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 2rem 0;
+        padding: 2rem 1rem;
 
         hr {
             width: 80%;
@@ -42,6 +42,21 @@
             border: none;
             margin: 2rem 0 1rem 0;
             background-color: #FFCD00;
+
+            @media (max-width: 768px) { 
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) { 
+            top: unset;
+            bottom: 2rem;
+            left: 0;
+            width: 100%;
+            display: flex;
+            padding: 1rem 0;
+            background-color: transparent;
+            box-shadow: none;
         }
     }
 </style>

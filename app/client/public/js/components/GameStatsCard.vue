@@ -1,8 +1,10 @@
 <template>
   <aside class="stats-card">
-        <font-awesome-icon icon="user-circle" />
-        <h2>{{ login }}</h2>
-        <hr>
+        <div class="container-login">
+            <font-awesome-icon icon="user-circle" />
+            <h2>{{ login }}</h2>
+            <hr>
+        </div>
         <div class="container-timer">
             <font-awesome-icon icon="stopwatch" />
             <span class="ttl">{{ ttl }}</span>
@@ -46,12 +48,20 @@
             color: #FFCD00;
             font-size: 2.5rem;
         }
+        
+        .container-login {
 
-        h2 {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-top: 1rem;
+            h2 {
+                font-size: 1.4rem;
+                font-weight: bold;
+                margin-top: 1rem;
+            }
+
+            @media (max-width: 768px) { 
+                display: none;
+            }
         }
+
 
         .container-timer {
             display: flex;
@@ -60,11 +70,28 @@
 
             svg {
                 margin-right: 1rem;
+
+                @media (max-width: 768px) { 
+                    font-size: 1.3rem;
+                }
             }
 
             .ttl {
                 font-size: 3rem;
                 vertical-align: middle;
+
+                @media (max-width: 768px) { 
+                    font-size: 1.3rem;
+                }
+            }
+
+            @media (max-width: 768px) { 
+                margin: 0rem 1rem;
+                width: max-content;
+                padding: 0.8rem 2rem;
+                border-radius: 50px;
+                background-color: white;
+                box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
             }
         }
 
@@ -84,14 +111,24 @@
             border-radius: 50px;
             text-transform: uppercase;
             margin-top: 1rem;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 
             &.alive {
-                background-color: rgba(24, 136, 24, 0.8);
+                background-color: rgb(24, 136, 24);
             }
 
             &.dead {
-                background-color: rgba(163, 26, 26, 0.8);
+                background-color: rgb(141, 27, 27);
             }
+
+            @media (max-width: 768px) { 
+                margin: 0rem 1rem;
+            }
+        }
+
+        @media (max-width: 768px) { 
+            flex-direction: row;
+            justify-content: space-between;
         }
     }
 </style>
