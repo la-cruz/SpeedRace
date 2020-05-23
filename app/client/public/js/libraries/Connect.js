@@ -1,7 +1,7 @@
 import AjaxRequest from './AjaxRequest'
 
 function login(login, password) {
-    return AjaxRequest.postData('http://192.168.75.28:8080/login', {
+    return AjaxRequest.postData('https://192.168.75.28:8080/login', {
         login: login,
         password: password
     }).then((json) => {
@@ -27,7 +27,7 @@ function login(login, password) {
 }
 
 function logout() {
-    return AjaxRequest.deleteData('http://192.168.75.28:8080/logout?token=' + sessionStorage.getItem('token')).then((json) => {
+    return AjaxRequest.deleteData('https://192.168.75.28:8080/logout?token=' + sessionStorage.getItem('token')).then((json) => {
         sessionStorage.removeItem('token');
         localStorage.removeItem('login');
         return false
