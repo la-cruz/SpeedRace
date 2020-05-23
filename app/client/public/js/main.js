@@ -11,6 +11,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+};
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: marker2x,
