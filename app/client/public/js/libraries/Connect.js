@@ -27,7 +27,7 @@ function login(login, password) {
 }
 
 function logout() {
-    return AjaxRequest.deleteData('https://192.168.75.28:8080/logout?token=' + sessionStorage.getItem('token')).then((json) => {
+    return AjaxRequest.deleteData('https://192.168.75.28/logout?token=' + sessionStorage.getItem('token')).then((json) => {
         sessionStorage.removeItem('token');
         localStorage.removeItem('login');
         return false
