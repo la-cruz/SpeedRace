@@ -1,7 +1,7 @@
 import AjaxRequest from './AjaxRequest'
 
 function login(login, password) {
-    return AjaxRequest.postData('https://192.168.75.28:8080/login', {
+    return AjaxRequest.postData('https://192.168.75.28/login', {
         login: login,
         password: password
     }).then((json) => {
