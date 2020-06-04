@@ -60,7 +60,7 @@
         </ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
-    <script src="http://192.168.75.28:3376/static/js/AjaxRequest.js"></script>
+    <script src="https://192.168.75.28:3376/static/js/AjaxRequest.js"></script>
     <script>
         var listUser = null
         var ttl = null
@@ -104,7 +104,7 @@
         }
 
         function updateData() {
-            getData("http://192.168.75.28:3376/admin/status")
+            getData("https://192.168.75.28:3376/admin/status")
                 .then((response) => {
                     return response.json()
                 }).then((json) => {
@@ -123,7 +123,7 @@
         }, 1000);
 
         function deleteUser(login) {
-            deleteData("http://192.168.75.28:8080/users/" + login)
+            deleteData("https://192.168.75.28:8080/users/" + login)
         }
     </script>
 
