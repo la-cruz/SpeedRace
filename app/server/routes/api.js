@@ -9,9 +9,9 @@ const game = require("../src/game")
 function authenticate(jwt) {
     var bool = false;
 
-    return axios.get('https://192.168.75.28/authenticate', {
+    return axios.get('http://192.168.75.28:8080/authenticate', {
         headers: {
-            origin: 'http://192.168.75.28'
+            origin: 'https://192.168.75.28'
         },
         params: {
             token: jwt,
