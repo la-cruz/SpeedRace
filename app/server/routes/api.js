@@ -11,7 +11,7 @@ function authenticate(jwt) {
 
     return axios.get('https://192.168.75.28:8080/authenticate', {
         headers: {
-            origin: 'http://192.168.75.28:8080'
+            origin: 'https://192.168.75.28:8080'
         },
         params: {
             token: jwt,
