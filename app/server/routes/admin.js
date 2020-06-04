@@ -8,9 +8,9 @@ var baseTtl = require('../src/ttl')
 function authenticate(jwt) {
     var bool = false;
 
-    return axios.get('https://192.168.75.28:8080/authenticate', {
+    return axios.get('http://192.168.75.28:8080/authenticate', {
         headers: {
-            origin: 'https://192.168.75.28:8080'
+            origin: 'http://192.168.75.28:8080'
         },
         params: {
             token: jwt,
