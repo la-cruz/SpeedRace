@@ -37,7 +37,7 @@ public class UserRestController {
 		Set<String> newList = new HashSet<>();
 
 		for ( String user : users.getAll()) {
-			newList.add("http://" + host + "/users/" + user);
+			newList.add("https://" + host + "/users/" + user);
 		}
 
 		return newList;
