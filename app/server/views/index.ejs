@@ -76,6 +76,7 @@
                         listUser = json
                         document.querySelector(".list-user").innerHTML = ""
                         json.forEach((elem) => {
+                            console.log("url : ", elem);
                             getData(elem)
                                 .then((response) => {
                                     return response.json()
