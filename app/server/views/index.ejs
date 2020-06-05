@@ -36,7 +36,7 @@
             <input class="btn-admin" type="reset" value="Commencer une partie" onclick='document.forms["start-game"].submit()'/>
             <div class="game-preview">Nom : <p></p>  Commencé : <span></span></div>
         </form>
-        <form action="https://192.168.75.28:8080/users" method="POST" name="create-user" target="dummyframe">
+        <form action="https://192.168.75.28/users" method="POST" name="create-user" target="dummyframe">
             <div class="reverse-input">
                 <input class="input-admin" id="login" name="login" type="text">
                 <label for="login">Login de l'utilisateur</label>
@@ -68,7 +68,7 @@
         var started = null
 
         function updateUserList() {
-            getData("https://192.168.75.28:8080/users")
+            getData("https://192.168.75.28/users")
                 .then((response) => {
                     return response.json()
                 }).then((json) => {
@@ -104,7 +104,7 @@
         }
 
         function updateData() {
-            getData("https://192.168.75.28:3376/admin/status")
+            getData("https://192.168.75.28/admin/status")
                 .then((response) => {
                     return response.json()
                 }).then((json) => {
@@ -123,7 +123,7 @@
         }, 1000);
 
         function deleteUser(login) {
-            deleteData("https://192.168.75.28:8080/users/" + login)
+            deleteData("https://192.168.75.28/users/" + login)
         }
     </script>
 
