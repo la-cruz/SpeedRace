@@ -29,16 +29,13 @@
             </div>
             <input class="btn-admin" type="reset" value="Valider" onclick='document.forms["update-target"].submit()'//>
         </form>
-        <form action="/admin/start" method="POST" name="start-game" target="dummyframe">
+        <form action="/admin/start" method="POST" name="game-form" target="dummyframe" class="game-form">
             <div class="reverse-input">
                 <input class="input-admin" id="gameName" name="gameName" type="text"/>
                 <label for="gameName">Nom de la partie : </label>
             </div>
-            <input class="btn-admin" type="reset" value="Commencer une partie" onclick='document.forms["start-game"].submit()'/>
+            <input class="btn-admin" type="reset" value="Commencer une partie" onclick='document.forms["game-form"].submit()'/>
             <div class="game-preview">Nom : <p></p>  Commencé : <span></span></div>
-        </form>
-        <form action="/admin/stop" method="POST" name="stop-game" target="dummyframe">
-            <input class="btn-admin" type="reset" value="Arreter la partie" onclick='document.forms["stop-game"].submit()' />
         </form>
         <form action="https://192.168.75.28/users" method="POST" name="create-user" target="dummyframe">
             <div class="reverse-input">
@@ -112,12 +109,38 @@
                 .then((response) => {
                     return response.json()
                 }).then((json) => {
+                    if(json.started && started !== json.started) {
+                        
+                    } else {
+                       
+                        document.forms["start-game"].submit()
+                    }
+
                     if(json.name !== gameName || json.started !== started) {
                         gameName = json.name
                         started = json.started
                         document.querySelector(".game-preview > p").innerHTML = gameName
                         document.querySelector(".game-preview > span").className = started
+
+                        var gameForm = document.querySelector(".game-form")
+                        var inputGameName = gameForm.querySelector(".reverse-input")
+                        var gameBtn = gameForm.querySelector("input[type=reset]")
+                        var gamePreview = document.querySelector(".game-preview")
+
+                        if(started) {
+                            gameForm.setAttribute("action", "/admin/stop")
+                            inputGameName.style.display = "none"
+                            gameBtn.value = "Arreter la partie"
+                            gamePreview.style.display = "block"
+                        } else {
+                            gameForm.setAttribute("action", "/admin/start")
+                            inputGameName.style.display = "block"
+                            gameBtn.value = "Commencer la partie"
+                            gamePreview.style.display = "none"
+                        }
                     }
+
+                    
 
                     if(json.baseTtl !== ttl) {
                         ttl = json.baseTtl
