@@ -116,8 +116,12 @@
                         document.querySelector(".game-preview > span").className = started
                     }
 
+                    console.log(json)
+
                     if(json.baseTtl !== ttl) {
+                        console.log(json.baseTtl)
                         ttl = json.baseTtl
+                        console.log(ttl)
                         document.querySelector("baseTtl").innerHTML = ttl
                     }
                 })
