@@ -35,10 +35,6 @@ router.get('/', function (req, res) {
     })
 })
 
-router.get('/ttl', function (req, res) {
-    res.send(game.getTtl())
-})
-
 router.post('/ttl', function (req, res) {
     game.setTtl(req.body.ttl);
     errors = []
