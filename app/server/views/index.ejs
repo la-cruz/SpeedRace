@@ -37,6 +37,9 @@
             <input class="btn-admin" type="reset" value="Commencer une partie" onclick='document.forms["start-game"].submit()'/>
             <div class="game-preview">Nom : <p></p>  Commencé : <span></span></div>
         </form>
+        <form action="/admin/stop" method="POST" name="stop-game" target="dummyframe">
+            <input class="btn-admin" type="reset" value="Arreter la partie" onclick='document.forms["stop-game"].submit()' />
+        </form>
         <form action="https://192.168.75.28/users" method="POST" name="create-user" target="dummyframe">
             <div class="reverse-input">
                 <input class="input-admin" id="login" name="login" type="text">
