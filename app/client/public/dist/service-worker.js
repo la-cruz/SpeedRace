@@ -1,5 +1,7 @@
 var cacheName = "TargetApp-v1";
 var contentToCache = [
+    './bundle.js',
+    './bundle.js.map',
     './logo-speedrace.png',
     './192.png',
     './512.png',
@@ -40,7 +42,9 @@ self.addEventListener('fetch', (e) => {
         return r || fetch(e.request).then((response) => {
                   return caches.open(cacheName).then((cache) => {
             console.log('[Service Worker] Caching new resource: '+e.request.url);
-            cache.put(e.request, response.clone());
+            if(e.request.method === "GET") {
+              cache.put(e.request, response.clone());
+            }
             return response;
           });
         });
