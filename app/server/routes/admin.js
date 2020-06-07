@@ -82,7 +82,7 @@ router.put('/start', function (req, res) {
     })
 })
 
-router.put('/stop', function (req, res) {
+router.post('/stop', function (req, res) {
     authenticate(req.headers.authorization)
     .then((bool) => {
         if(bool) {
