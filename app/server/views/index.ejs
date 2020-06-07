@@ -109,13 +109,6 @@
                 .then((response) => {
                     return response.json()
                 }).then((json) => {
-                    if(json.started && started !== json.started) {
-                        
-                    } else {
-                       
-                        document.forms["start-game"].submit()
-                    }
-
                     if(json.name !== gameName || json.started !== started) {
                         gameName = json.name
                         started = json.started
