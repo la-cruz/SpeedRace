@@ -83,15 +83,8 @@ router.put('/start', function (req, res) {
 })
 
 router.post('/stop', function (req, res) {
-    authenticate(req.headers.authorization)
-    .then((bool) => {
-        if(bool) {
-            game.stop()
-            res.send("Game Stopped")
-        } else {
-            res.send("You're not connected")
-        }
-    })
+    game.stop()
+    res.send("Game Stopped")
 })
 
 router.put('/target', function (req, res) {
