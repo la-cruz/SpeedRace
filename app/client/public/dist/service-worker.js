@@ -1,7 +1,5 @@
 var cacheName = "TargetApp-v1";
 var contentToCache = [
-    './bundle.js',
-    './bundle.js.map',
     './logo-speedrace.png',
     './192.png',
     './512.png',
