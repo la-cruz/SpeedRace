@@ -12,9 +12,9 @@
         <hr>
         <form action="/admin/ttl" method="POST" name="update-ttl" target="dummyframe">
             <div class="reverse-input">
+                <p>Actuel : <span class="baseTtl"></span></p>
                 <input class="input-admin" id="ttl" name="ttl" type="text"/>
                 <label for="ttl">TTL de base : </label>
-                <p>Actuel : <span class="baseTtl"></span></p>
             </div>
             <input class="btn-admin" type="reset" value="Valider" onclick='document.forms["update-ttl"].submit()'//>
         </form>
@@ -280,6 +280,10 @@
             background-color: rgb(43, 145, 34);
         }
 
+        span.baseTtl {
+            background-color: transparent;
+        }
+
         button {
             margin-left: 0.8rem;
             background-color: white;
@@ -320,7 +324,8 @@
             }
         }
 
-        .game-preview p {
+        p,
+        .baseTtl {
             margin: 0 1rem;
             color: rgb(56, 56, 56);
             font-size: 1.1rem;
