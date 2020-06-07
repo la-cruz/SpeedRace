@@ -31,7 +31,7 @@ class Game {
     }
 
     setTtl(newTtl) {
-        this.ttl = newTtl
+        this.baseTtl = newTtl
     }
 
     isStarted() {
