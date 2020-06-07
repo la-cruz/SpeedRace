@@ -1,11 +1,11 @@
-const baseTtl = require('./ttl')
+const game = require('./game')
 
 class GeoResources {
     constructor (
         id,
         role="sane",
         position=[],
-        ttl=baseTtl,
+        ttl=game.getTtl(),
         url="",
         blurred=false,
         status="alive",

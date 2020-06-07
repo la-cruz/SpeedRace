@@ -3,6 +3,10 @@ class ListResources {
         this.list = list;
     }
     
+    empty() {
+        this.list = {}
+    }
+
     push(resources) {
         this.list[resources.id]=resources;
     }

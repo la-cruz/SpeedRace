@@ -3,13 +3,15 @@ const List = require('./listResources')
 class Game {
     constructor (
         name="",
-        started=false
+        started=false,
+        baseTtl=60
     ) {
         this.name = name
         this.started = started
         this.startDate = null
         this.geoRessources = List
         this.winner = ""
+        this.baseTtl = baseTtl
     }
 
     addRessource(id) {
@@ -22,6 +24,14 @@ class Game {
 
     getRessources() {
         return this.geoRessources
+    }
+
+    getTtl() {
+        return this.ttl
+    }
+
+    setTtl(newTtl) {
+        this.ttl = newTtl
     }
 
     isStarted() {
@@ -40,6 +50,9 @@ class Game {
     stop() {
         this.started = false
         this.startDate = null
+        this.geoRessources.empty()
+        this.name = ""
+        this.winner = ""
     }
 }
 

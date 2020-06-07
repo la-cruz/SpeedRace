@@ -3,7 +3,6 @@ const router = express.Router()
 const axios = require('axios')
 const game = require("../src/game")
 const geoResources = require("../src/geoResources")
-var baseTtl = require('../src/ttl')
 
 function authenticate(jwt) {
     var bool = false;
@@ -36,8 +35,12 @@ router.get('/', function (req, res) {
     })
 })
 
+router.get('/ttl', function (req, res) {
+    res.send(game.getTtl())
+})
+
 router.post('/ttl', function (req, res) {
-    baseTtl = req.body.ttl;
+    game.setTtl(req.body.ttl);
     errors = []
     res.render('index', {
         errors
