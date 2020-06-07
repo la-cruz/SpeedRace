@@ -27,7 +27,7 @@ class Game {
     }
 
     getTtl() {
-        return this.ttl
+        return this.baseTtl
     }
 
     setTtl(newTtl) {
