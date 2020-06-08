@@ -114,10 +114,7 @@
 
                                     let player = json.list[key]
 
-                                    console.log(player)
-
                                     if(player.status === "winner") {
-                                        console.log("je change un gagant")
                                         this.changeWinner(player.id)
                                         this.stopLoop()
                                         navigator.geolocation.clearWatch(this.watchPos)
@@ -157,6 +154,7 @@
                                         status: "dead",
                                         updateServer: true
                                     })
+                                    this.showAlert()
                                 }
                             }
 
@@ -194,7 +192,6 @@
             showAlert () {
                 if(!this.gameEnded) {
                     if(this.winner === this.login) {
-                        console.log("tu as gagné")
                         this.updateMarkers()
                         this.endGame()
                         this.$swal("Bravo, vous avez gagné")
@@ -213,7 +210,6 @@
                             console.log(error)
                         }
                     } else if(this.winner !== 'none' && this.winner !== this.login) {
-                        console.log("Il y a un gagnant")
                         this.updateMarkers()
                         this.endGame()
                         this.$swal(`Perdu, ${this.winner} a gagné`)
