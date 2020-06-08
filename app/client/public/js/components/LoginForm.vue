@@ -110,10 +110,6 @@
 
                         this.setLoop(setInterval(() =>{
                             DataModule.list().then((json) => {
-                                if(json.winner !== "") {
-                                    console.log(json.winner, " à gagné")
-                                }
-                                
                                 Object.keys(json.list).forEach((key) => {
 
                                     let player = json.list[key]
@@ -174,8 +170,8 @@
                                 this.join()
                             }
 
-                            if(json.geoRessources.list.filter(elem => elem.status == "winner")) {
-                                console.log("Il y a un gagnant et c'est ", json.geoRessources.list.filter(elem => elem.status == "winner")[0] )
+                            if(Object.values(json.geoRessources.list).filter(elem => elem.status == "winner").length > 0) {
+                                this.changeWinner(Object.values(json.geoRessources.list).filter(elem => elem.status == "winner")[0].id)
                             }
                         })
 
