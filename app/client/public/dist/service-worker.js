@@ -34,7 +34,7 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-    if(!e.request.url.startsWith('https://192.168.75.28/admin')) {
+    if(window.location.pathname != '/admin') {
       e.respondWith(
         caches.match(e.request).then((r) => {
               console.log('[Service Worker] Fetching resource: '+e.request.url);
