@@ -34,18 +34,20 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-    e.respondWith(
-      caches.match(e.request).then((r) => {
-            console.log('[Service Worker] Fetching resource: '+e.request.url);
-        return r || fetch(e.request).then((response) => {
-                  return caches.open(cacheName).then((cache) => {
-            console.log('[Service Worker] Caching new resource: '+e.request.url);
-            if(e.request.method === "GET") {
-              cache.put(e.request, response.clone());
-            }
-            return response;
+    if(!e.request.url.startsWith('https://192.168.175.28/admin')) {
+      e.respondWith(
+        caches.match(e.request).then((r) => {
+              console.log('[Service Worker] Fetching resource: '+e.request.url);
+          return r || fetch(e.request).then((response) => {
+                    return caches.open(cacheName).then((cache) => {
+              console.log('[Service Worker] Caching new resource: '+e.request.url);
+              if(e.request.method === "GET") {
+                cache.put(e.request, response.clone());
+              }
+              return response;
+            });
           });
-        });
-      })
-    );
+        })
+      );
+    }
 });
