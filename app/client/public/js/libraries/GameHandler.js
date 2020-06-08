@@ -29,7 +29,7 @@ function status() {
 }
 
 function win(player) {
-    return AjaxRequest.putData('https://192.168.75.28/admin/win', {
+    return AjaxRequest.putData('https://192.168.75.28/admin/winner', {
         player: player
     })
 }
