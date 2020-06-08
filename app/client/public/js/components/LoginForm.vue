@@ -165,7 +165,7 @@
                         }, 1000))
 
                         GameModule.status().then((json) => {
-                            console.log(json)
+                            console.log(json.winner)
                             if(json.winner !== "") {
                                 console.log(json.winner, " à gagné")
                                 this.changeWinner(json.winner)
