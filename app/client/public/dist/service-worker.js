@@ -1,54 +1,147 @@
-var cacheName = "TargetApp-v1";
-var contentToCache = [
-    './bundle.js',
-    './logo-speedrace.png',
-    './192.png',
-    './512.png',
-    './4f0283c6ce28e888000e978e537a6a56.png',
-    './44a526eed258222515aa21eaffd14a96.png',
-    './401d815dc206b8dc1b17cd0e37695975.png',
-    './2273e3d8ad9264b7daa5bdbf8e6b47f8.png',
-    './a6137456ed160d7606981aa57c559898.png',
-    './index.html'
-]
+if ('serviceWorker' in navigator && !this.hasOwnProperty('ServiceWorkerGlobalScope')) {
+	var ownUrl = new URL(document.currentScript.src);
 
-self.addEventListener('install', (e) => {
-    console.log('[Service Worker] Install');
-    e.waitUntil(
-        caches.open(cacheName).then((cache) => {
-            console.log('[Service Worker] Caching all: app shell and content');
-            return cache.addAll(contentToCache);
-        })
-    );
-});
 
-self.addEventListener('activate', (e) => {
-    e.waitUntil(
-      caches.keys().then((keyList) => {
-            return Promise.all(keyList.map((key) => {
-          if(key !== cacheName) {
-            return caches.delete(key);
-          }
-        }));
-      })
-    );
-});
+	// Before the worker inits, keep tileserver URLs temporarily here
+	var oldTileLayerProto = L.extend({}, L.TileLayer.prototype);
 
-self.addEventListener('fetch', (e) => {
-    if(window.location.pathname != '/admin') {
-      e.respondWith(
-        caches.match(e.request).then((r) => {
-              console.log('[Service Worker] Fetching resource: '+e.request.url);
-          return r || fetch(e.request).then((response) => {
-                    return caches.open(cacheName).then((cache) => {
-              console.log('[Service Worker] Caching new resource: '+e.request.url);
-              if(e.request.method === "GET") {
-                cache.put(e.request, response.clone());
-              }
-              return response;
-            });
-          });
-        })
-      );
-    }
-});
+	L.TileLayer._urlsToWatch = [];
+	L.TileLayer.prototype.initialize = function(url, options) {
+		///// TODO: Add an option to make caching optional
+		L.TileLayer._urlsToWatch.push(url);
+		return oldTileLayerProto.initialize.call(this, url, options);
+	}
+
+
+
+	// When the worker inits, send the list of URLs to watch for
+	function onWorkerState(worker, state) {
+		var state = worker.state;
+		if (state !== 'activated') { return; }
+
+		console.log('Service worker is active: ', worker, L.TileLayer._urlsToWatch);
+
+		for (var i in L.TileLayer._urlsToWatch) {
+			worker.postMessage({type: 'registerTileLayer', url: L.TileLayer._urlsToWatch[i]});
+		}
+
+		// 		fetch('https://a.basemaps.cartocdn.com/light_all/5/21/9.png').then(function(res){
+		// 			console.log('Fetched a tile', res);
+		// 		});
+
+		// Redefine tilelayer init code
+		L.TileLayer.prototype.initialize = function(url, options) {
+			///// TODO: Add an option to make caching optional
+			worker.postMessage({type: 'registerTileLayer', url: url});
+			return oldTileLayerProto.initialize.call(this, url, options);
+		}
+
+	}
+
+
+
+	// Register this file as a SeWo, attach event handler
+
+	navigator.serviceWorker.register(ownUrl).then(function(registration) {
+		console.log('I registered myself', registration);
+
+		var worker;
+		if (registration.installing) {
+			worker = registration.installing;
+		} else if (registration.waiting) {
+			worker = registration.waiting;
+		} else if (registration.active) {
+			worker = registration.active;
+		}
+		if (worker) {
+			onWorkerState(worker);
+			worker.addEventListener('statechange', function(e) {
+				onWorkerState(e.target);
+			});
+		}
+
+	}).catch(function(error) {
+		console.error('Could not register myself:', error);
+	});
+
+
+
+
+}
+
+
+else if (this.hasOwnProperty('ServiceWorkerGlobalScope')) {
+	// When running as a SeWo:
+	console.log('I\'m running as a service worker', this);
+
+
+	// Receive 'registerTileLayer' worker messages
+	// and add that URL as a RegExp of URLs to manage via SeWo cache.
+	var tileRegExp = null;
+	var tileRegExpTexts = [];
+
+	this.addEventListener("message", function(ev) {
+
+		if (this.clients && clients.claim) {
+			console.log('Claiming clients', clients);
+			clients.claim();
+		}
+
+		if (ev.data.type === 'registerTileLayer') {
+
+			// Create a RegExp based on the URL
+			var url = ev.data.url;
+			var regExpText = '^' + ev.data.url
+				.replace('{s}','.*')
+				.replace('{x}','[0-9]+')
+				.replace('{y}','[0-9]+')
+				.replace('{z}','[0-9]+')
+				.replace('{r}','(@2x)?')
+				+ '$';
+
+			// ev.source is a client object
+			if (tileRegExpTexts.indexOf(regExpText) === -1) {
+				tileRegExpTexts.push(regExpText);
+
+				// ^((url1)|(url2)|(url3))$
+				tileRegExp = new RegExp( '^((' + tileRegExpTexts.join(')|(') + '))$' );
+			}
+			console.log("Asked to register a new tile URL: ", ev.data, ", and now the tiles I must look for are: ", tileRegExpTexts, tileRegExp);
+
+// 			fetch('https://a.basemaps.cartocdn.com/light_all/5/21/9.png').then(function(res){
+// 				console.log('Fetched an internal tile', res, this);
+// 			});
+		}
+	});
+
+
+	// Intercept network requests to tiles
+	self.addEventListener("fetch", function(ev) {
+// 	this.addEventListener("fetch", function(ev) {
+// 	this.onfetch = function(ev) {
+// 		console.log('Worker fetch:', ev.request.url, ev);
+
+		if (!tileRegExp) { return null; }
+
+		if (ev.request.url.match(tileRegExp)) {
+			console.log('Should cache the tile', ev.request.url);
+		} else {
+			console.log('Does not look like a tile', ev.request.url);
+		}
+
+// 	};
+	});
+
+
+	this.addEventListener('install', function(ev) {
+		console.log('Worker installed', ev);
+
+		ev.waitUntil(caches.open('leaflet-cached-tiles'));
+
+		console.log('caches should be open', caches);
+
+	});
+
+
+
+}
