@@ -110,6 +110,11 @@
 
                         this.setLoop(setInterval(() =>{
                             DataModule.list().then((json) => {
+                                console.log(json)
+                                if(json.winner !== "") {
+                                    console.log(json.winner, " à gagné")
+                                }
+                                
                                 Object.keys(json.list).forEach((key) => {
 
                                     let player = json.list[key]
@@ -186,6 +191,7 @@
             showAlert () {
                 if(!this.gameEnded) {
                     if(this.winner === this.login) {
+                        console.log("tu as gagné")
                         this.updateMarkers()
                         this.endGame()
                         this.$swal("Bravo, vous avez gagné")
@@ -204,6 +210,7 @@
                             console.log(error)
                         }
                     } else if(this.winner !== 'none' && this.winner !== this.login) {
+                        console.log("Il y a un gagnant")
                         this.updateMarkers()
                         this.endGame()
                         this.$swal(`Perdu, ${this.winner} a gagné`)
