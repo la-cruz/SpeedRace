@@ -110,7 +110,6 @@
 
                         this.setLoop(setInterval(() =>{
                             DataModule.list().then((json) => {
-                                console.log(json)
                                 if(json.winner !== "") {
                                     console.log(json.winner, " à gagné")
                                 }
@@ -166,6 +165,11 @@
                         }, 1000))
 
                         GameModule.status().then((json) => {
+                            if(json.winner !== "") {
+                                console.log(json.winner, " à gagné")
+                                this.changeWinner(json.winner)
+                            }
+
                             if(json.started) {
                                 this.changeGame(true)
                             }
