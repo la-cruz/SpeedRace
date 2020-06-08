@@ -165,13 +165,6 @@
                         }, 1000))
 
                         GameModule.status().then((json) => {
-                            console.log(json)
-                            console.log(json.winner)
-                            if(json.winner !== "") {
-                                console.log(json.winner, " à gagné")
-                                this.changeWinner(json.winner)
-                            }
-
                             if(json.started) {
                                 this.changeGame(true)
                             }
@@ -179,6 +172,10 @@
                             if(json.geoRessources.list[this.login]) {
                                 this.getStats()
                                 this.join()
+                            }
+
+                            if(json.geoRessources.list.filter(elem => elem.status == "winner")) {
+                                console.log("Il y a un gagnant et c'est ", json.geoRessources.list.filter(elem => elem.status == "winner")[0] )
                             }
                         })
 
