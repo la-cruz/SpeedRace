@@ -49,7 +49,7 @@ router.post('/target', function (req, res) {
         if(!game.getRessource('target')) {
             game.addRessource(new geoResources('target'))
         }
-        game.getRessource('target').position = [parseInt(req.body.latitude), parseInt(req.body.longitude)]
+        game.getRessource('target').position = [parseFloat(req.body.latitude), parseFloat(req.body.longitude)]
     } else {
         errors.push("La partie n'a pas commencée")
     }
