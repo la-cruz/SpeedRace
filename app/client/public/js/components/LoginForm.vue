@@ -114,10 +114,14 @@
 
                                     let player = json.list[key]
 
+                                    console.log(player)
+
                                     if(player.status === "winner") {
+                                        console.log("je change un gagant")
                                         this.changeWinner(player.id)
                                         this.stopLoop()
                                         navigator.geolocation.clearWatch(this.watchPos)
+                                        this.showAlert()
                                     }
 
                                     if(player.status !== "dead"){
@@ -170,9 +174,9 @@
                                 this.join()
                             }
 
-                            if(Object.values(json.geoRessources.list).filter(elem => elem.status == "winner").length > 0) {
-                                this.changeWinner(Object.values(json.geoRessources.list).filter(elem => elem.status == "winner")[0].id)
-                            }
+                            // if(Object.values(json.geoRessources.list).filter(elem => elem.status == "winner").length > 0) {
+                            //     this.changeWinner(Object.values(json.geoRessources.list).filter(elem => elem.status == "winner")[0].id)
+                            // }
                         })
 
                         window.location.href = "/#/";
