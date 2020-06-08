@@ -34,6 +34,7 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
+  console.log(e)
     if(!e.request.url.startsWith('https://192.168.175.28/admin')) {
       e.respondWith(
         caches.match(e.request).then((r) => {
