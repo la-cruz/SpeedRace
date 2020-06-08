@@ -34,8 +34,7 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  console.log(e)
-    if(!e.request.url.startsWith('https://192.168.175.28/admin')) {
+    if(!e.request.url.startsWith('https://192.168.75.28/admin')) {
       e.respondWith(
         caches.match(e.request).then((r) => {
               console.log('[Service Worker] Fetching resource: '+e.request.url);
