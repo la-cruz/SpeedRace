@@ -191,6 +191,8 @@
                         this.$swal("Bravo, vous avez gagné")
                         try {
                             window.navigator.vibrate(200);
+                        } catch(error) {
+                            console.log(error)
                         }
                     } else if(this.status === 'dead') {
                         this.updateMarkers()
@@ -198,6 +200,8 @@
                         this.$swal("Dommage ... vous avez perdu")
                         try {
                             window.navigator.vibrate(200);
+                        } catch(error) {
+                            console.log(error)
                         }
                     } else if(this.winner !== 'none' && this.winner !== this.login) {
                         this.updateMarkers()
@@ -205,6 +209,8 @@
                         this.$swal(`Perdu, ${this.winner} a gagné`)
                         try {
                             window.navigator.vibrate(200);
+                        } catch(error) {
+                            console.log(error)
                         }
                     }
                 }
