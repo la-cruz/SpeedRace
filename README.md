@@ -1,14 +1,35 @@
 # M1IF13-2020
 
-Ce dépôt contient les énoncés et le code des TP de Web avancé et mobile pour 2019-2020.
+Ce dépôt contient les codes des TP de Web avancé et mobile pour 2019-2020.
 
 ## Description de l'application
 
-Dans cette UE, vous allez réaliser une application Web côté client, qui fait appel à plusieurs serveurs (mashup), pour différents types de traitements :
+L'application possède une partie admin, /admin qui permet de gérer les différents paramètres de la partie (ttl, position de la cible, création de la partie, et gestion des utilisateur).
+Un système de connexion, en utilisant un serveur spring.
+Un système de jeu, dont le but est d'attendire la cible.
 
-- un serveur de gestion des utilisateurs et des tokens de connexion (ce TP),
-- un serveur de fichiers statiques côté client,
-- un serveur applicatif qui permettra de réaliser le métier de l'application (une application communautaire et géolocalisée).
+## Organisation des fichiers
+
+Le dossier /app dossier principal de l'application
+Le dossier /simple-client et /TP1 concerne les premier TP de l'UE
+Le dossier /users est le code pour la partie Spring.
+
+## Installation
+
+Installation des modules :
+```
+npm install
+```
+
+Lancement de la partie client dans app/client :
+```
+npm run server
+```
+
+Lancement de la partie serveur dans app/server :
+```
+node server.js
+```
 
 ## Choix de l'utilisation de Scss pour le Responsive design à la place de Vuetify
 
