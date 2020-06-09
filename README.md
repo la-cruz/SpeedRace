@@ -45,3 +45,7 @@ Plusieurs arguments ont penché dans la balance pour nous pousser à faire ce ch
 Les grands désavantage de l'utilisation de Sass sont la courbe d'apprentissage (Pour le css plus que le Sass en lui-même), de plus que du temps de programmation pur qui peut facilement être plus important qu'avec l'utilisation d'une bibliothèque de composant comme Vuetify, mais nous avons préféré tout de même cette méthode pour tous les avantages cités plus haut qu'elle nous apporte.
 
 De plus, nous avons préalablement demandé l'autorisation pour éviter de prendre une décision contre le court du projet
+
+## Affichage de la target 
+
+<img src="./image-README/target.png" alt="target" width="100%"/>
