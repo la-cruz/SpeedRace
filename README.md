@@ -31,6 +31,14 @@ Lancement de la partie serveur dans app/server :
 node server.js
 ```
 
+## Partie admin 
+
+Visualisation de la target :
+
+<img src="./image-README/target.png" alt="target" width="100%"/>
+
+:warning: Pour créer une partie depuis la partie admin vous devez tous d'abord remplir et valider le formulaire pour créer la partie, avant de remplir et valider les formulaire pour modifier le ttl et la position de la target.
+
 ## Choix de l'utilisation de Scss pour le Responsive design à la place de Vuetify
 
 Plusieurs arguments ont penché dans la balance pour nous pousser à faire ce choix, notamment grâce au avantage de travailler avec Sass : 
@@ -46,6 +54,3 @@ Les grands désavantage de l'utilisation de Sass sont la courbe d'apprentissage 
 
 De plus, nous avons préalablement demandé l'autorisation pour éviter de prendre une décision contre le court du projet
 
-## Affichage de la target 
-
-<img src="./image-README/target.png" alt="target" width="100%"/>
