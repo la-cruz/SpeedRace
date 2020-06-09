@@ -1,18 +1,14 @@
 if ('serviceWorker' in navigator && !this.hasOwnProperty('ServiceWorkerGlobalScope')) {
 	var ownUrl = new URL(document.currentScript.src);
 
-
 	// Before the worker inits, keep tileserver URLs temporarily here
 	var oldTileLayerProto = L.extend({}, L.TileLayer.prototype);
 
 	L.TileLayer._urlsToWatch = [];
 	L.TileLayer.prototype.initialize = function(url, options) {
-		///// TODO: Add an option to make caching optional
 		L.TileLayer._urlsToWatch.push(url);
 		return oldTileLayerProto.initialize.call(this, url, options);
 	}
-
-
 
 	// When the worker inits, send the list of URLs to watch for
 	function onWorkerState(worker, state) {
@@ -25,20 +21,13 @@ if ('serviceWorker' in navigator && !this.hasOwnProperty('ServiceWorkerGlobalSco
 			worker.postMessage({type: 'registerTileLayer', url: L.TileLayer._urlsToWatch[i]});
 		}
 
-		// 		fetch('https://a.basemaps.cartocdn.com/light_all/5/21/9.png').then(function(res){
-		// 			console.log('Fetched a tile', res);
-		// 		});
-
 		// Redefine tilelayer init code
 		L.TileLayer.prototype.initialize = function(url, options) {
-			///// TODO: Add an option to make caching optional
 			worker.postMessage({type: 'registerTileLayer', url: url});
 			return oldTileLayerProto.initialize.call(this, url, options);
 		}
 
 	}
-
-
 
 	// Register this file as a SeWo, attach event handler
 
@@ -63,9 +52,6 @@ if ('serviceWorker' in navigator && !this.hasOwnProperty('ServiceWorkerGlobalSco
 	}).catch(function(error) {
 		console.error('Could not register myself:', error);
 	});
-
-
-
 
 }
 
