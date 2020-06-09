@@ -33,6 +33,8 @@ node server.js
 
 ## Partie admin 
 
+https://192.168.75.28/admin
+
 Visualisation de la target :
 
 <img src="./image-README/target.png" alt="target" width="100%"/>
