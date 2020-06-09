@@ -37,7 +37,9 @@ Visualisation de la target :
 
 <img src="./image-README/target.png" alt="target" width="100%"/>
 
-:warning: Pour créer une partie depuis la partie admin vous devez tous d'abord remplir et valider le formulaire pour créer la partie, avant de remplir et valider les formulaire pour modifier le ttl et la position de la target.
+:warning: Pour créer une partie depuis la partie admin vous devez tous d'abord remplir et valider le formulaire pour créer la partie, avant de remplir et valider les formulaires pour modifier le ttl et la position de la target.
+
+Si vous ne créer pas la partie depuis la page admin, vous pouvez vous connecter et la première personne connecter pourra créer une partie avec une target aléatoire.
 
 ## Choix de l'utilisation de Scss pour le Responsive design à la place de Vuetify
 
